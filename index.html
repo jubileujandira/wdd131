@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +9,13 @@
   <meta name="description" content="WDD 131 – Fundamentos da Web Dinâmica. Leandro Moura. Página inicial com HTML, CSS e JavaScript.">
   <meta name="author" content="Leandro Moura">
 
+  <!-- Google Fonts (OBRIGATÓRIO) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="estilos/base.css">
+
   <script src="scripts/obterdatas.js" defer></script>
 </head>
 
@@ -18,31 +24,31 @@
 <header>
   <h1>WDD 131 – Fundamentos da Web Dinâmica</h1>
 
+  <!-- CORRETO (SEM QUEBRA DE LINHA) -->
+  <span id="course-title">WDD 131 – Fundamentos da Web Dinâmica</span>
+
   <nav>
     <a href="https://www.linkedin.com" target="_blank">LinkedIn</a>
     <a href="https://byupw.instructure.com/" target="_blank">Canvas</a>
     <a href="https://www.churchofjesuschrist.org/study/scriptures?lang=por" target="_blank">Escrituras</a>
-    <a href="#">Projeto Final</a>
+    <a href="#" target="_blank">Projeto Final</a>
   </nav>
 </header>
 
 <main>
+  <!-- APENAS UM H1 -->
   <h1>Leandro Moura</h1>
 
   <section class="card">
-    <h2>Sobre mim</h2>
-    <img src="imagens/imagem1.jpg" alt="Imagem 1">
-    <p>
-      Sou estudante de desenvolvimento web aprendendo HTML, CSS e JavaScript. Estou praticando criação de páginas e organização de layouts.
-    </p>
+    <h2>Card 1</h2>
+    <img src="imagens/imagem1.jpg" alt="Imagem ilustrativa 1">
+    <p>Conteúdo do primeiro card.</p>
   </section>
 
   <section class="card">
-    <h2>Interesses</h2>
-    <img src="imagens/imagem2.jpg" alt="Imagem 2">
-    <p>
-      Tenho interesse em tecnologia, programação, desenvolvimento web e criação de projetos interativos.
-    </p>
+    <h2>Card 2</h2>
+    <img src="imagens/imagem2.jpg" alt="Imagem ilustrativa 2">
+    <p>Conteúdo do segundo card.</p>
   </section>
 </main>
 
