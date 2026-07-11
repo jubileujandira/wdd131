@@ -1,110 +1,209 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Álbum do Templo</title>
 
-    <meta name="description" content="Álbum de imagens de templos.">
+    <meta name="description" content="Álbum de imagens dos templos de A Igreja de Jesus Cristo dos Santos dos Últimos Dias no Brasil">
+
     <meta name="author" content="SEU NOME">
 
-    <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
+
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
+
     <link rel="stylesheet" href="estilos/templos.css">
+
     <link rel="stylesheet" href="estilos/templos-grandes.css">
 
+
     <script src="scripts/templos.js" defer></script>
+
 </head>
 
+
 <body>
+
 
 <header>
 
     <h1>Álbum do Templo</h1>
 
-    <button id="menu">☰</button>
 
-    <nav id="nav">
+    <button id="menuButton" aria-label="Abrir menu">
+        ☰
+    </button>
+
+
+    <nav id="menu">
+
         <a href="#">Página Inicial</a>
+
         <a href="#">Antigo</a>
+
         <a href="#">Novo</a>
+
         <a href="#">Grande</a>
+
         <a href="#">Pequeno</a>
+
     </nav>
+
 
 </header>
 
+
+
 <main>
 
-<h2>Página Inicial</h2>
 
-<div class="galeria">
+<h2>Templos do Brasil</h2>
 
-<figure>
-<img src="https://churchofjesuschristtemples.org/assets/img/temples/san-diego-california-temple/san-diego-california-temple-54165-main.jpg" alt="Templo de San Diego">
-<figcaption>Templo de San Diego</figcaption>
-</figure>
+
+<section class="galeria">
+
 
 <figure>
-<img src="https://churchofjesuschristtemples.org/assets/img/temples/san-diego-california-temple/san-diego-california-temple-54165-main.jpg" alt="Templo de San Diego">
-<figcaption>Templo de San Diego</figcaption>
+
+<img src="imagens/sao-paulo.jpg" alt="Templo de São Paulo Brasil">
+
+<figcaption>
+Templo de São Paulo
+</figcaption>
+
 </figure>
+
+
 
 <figure>
-<img src="https://churchofjesuschristtemples.org/assets/img/temples/san-diego-california-temple/san-diego-california-temple-54165-main.jpg" alt="Templo de San Diego">
-<figcaption>Templo de San Diego</figcaption>
+
+<img src="imagens/recife.jpg" alt="Templo de Recife Brasil">
+
+<figcaption>
+Templo de Recife
+</figcaption>
+
 </figure>
+
+
 
 <figure>
-<img src="https://churchofjesuschristtemples.org/assets/img/temples/san-diego-california-temple/san-diego-california-temple-54165-main.jpg" alt="Templo de San Diego">
-<figcaption>Templo de San Diego</figcaption>
+
+<img src="imagens/campinas.jpg" alt="Templo de Campinas Brasil">
+
+<figcaption>
+Templo de Campinas
+</figcaption>
+
 </figure>
+
+
 
 <figure>
-<img src="https://churchofjesuschristtemples.org/assets/img/temples/san-diego-california-temple/san-diego-california-temple-54165-main.jpg" alt="Templo de San Diego">
-<figcaption>Templo de San Diego</figcaption>
+
+<img src="imagens/curitiba.jpg" alt="Templo de Curitiba Brasil">
+
+<figcaption>
+Templo de Curitiba
+</figcaption>
+
 </figure>
+
+
 
 <figure>
-<img src="https://churchofjesuschristtemples.org/assets/img/temples/san-diego-california-temple/san-diego-california-temple-54165-main.jpg" alt="Templo de San Diego">
-<figcaption>Templo de San Diego</figcaption>
+
+<img src="imagens/fortaleza.jpg" alt="Templo de Fortaleza Brasil">
+
+<figcaption>
+Templo de Fortaleza
+</figcaption>
+
 </figure>
+
+
 
 <figure>
-<img src="https://churchofjesuschristtemples.org/assets/img/temples/san-diego-california-temple/san-diego-california-temple-54165-main.jpg" alt="Templo de San Diego">
-<figcaption>Templo de San Diego</figcaption>
+
+<img src="imagens/brasilia.jpg" alt="Templo de Brasília Brasil">
+
+<figcaption>
+Templo de Brasília
+</figcaption>
+
 </figure>
+
+
 
 <figure>
-<img src="https://churchofjesuschristtemples.org/assets/img/temples/san-diego-california-temple/san-diego-california-temple-54165-main.jpg" alt="Templo de San Diego">
-<figcaption>Templo de San Diego</figcaption>
+
+<img src="imagens/rio.jpg" alt="Templo do Rio de Janeiro Brasil">
+
+<figcaption>
+Templo do Rio de Janeiro
+</figcaption>
+
 </figure>
+
+
 
 <figure>
-<img src="https://churchofjesuschristtemples.org/assets/img/temples/san-diego-california-temple/san-diego-california-temple-54165-main.jpg" alt="Templo de San Diego">
-<figcaption>Templo de San Diego</figcaption>
+
+<img src="imagens/belem.jpg" alt="Templo de Belém Brasil">
+
+<figcaption>
+Templo de Belém
+</figcaption>
+
 </figure>
 
-</div>
+
+
+<figure>
+
+<img src="imagens/porto-alegre.jpg" alt="Templo de Porto Alegre Brasil">
+
+<figcaption>
+Templo de Porto Alegre
+</figcaption>
+
+</figure>
+
+
+
+</section>
+
 
 </main>
 
+
+
 <footer>
 
+
 <p>
-© <span id="year"></span> | Seu Nome
+© <span id="currentYear"></span>
+SEU NOME
 </p>
+
 
 <p>
 Última modificação:
 <span id="lastModified"></span>
 </p>
 
+
 </footer>
 
+
+
 </body>
+
 </html>
