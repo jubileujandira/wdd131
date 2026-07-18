@@ -1,0 +1,253 @@
+:root {
+    --primary-color: #006b2d;
+    --secondary-color: #ffdf00;
+    --accent-color: #002776;
+    --background-color: #f3f5f4;
+    --surface-color: #ffffff;
+    --text-color: #1f2933;
+    --muted-color: #52606d;
+    --border-color: #d9e2ec;
+    --shadow-color: #00000026;
+    --header-font: Georgia, "Times New Roman", serif;
+    --body-font: Arial, Helvetica, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    background-color: var(--background-color);
+}
+
+body {
+    min-width: 320px;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: var(--body-font);
+    line-height: 1.6;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+header {
+    border-bottom: 8px solid var(--secondary-color);
+    background-color: var(--primary-color);
+    color: var(--surface-color);
+    padding: 1rem;
+    text-align: center;
+}
+
+h1,
+h2 {
+    font-family: var(--header-font);
+}
+
+h1 {
+    font-size: clamp(2rem, 6vw, 3.25rem);
+    letter-spacing: 0.04em;
+}
+
+main {
+    width: 100%;
+}
+
+.hero {
+    position: relative;
+}
+
+.hero picture,
+.hero picture img {
+    width: 100%;
+}
+
+.hero picture img {
+    height: auto;
+    object-fit: cover;
+}
+
+.content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    padding: 1.25rem;
+}
+
+.card {
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    background-color: var(--surface-color);
+    box-shadow: 0 4px 14px var(--shadow-color);
+}
+
+.card h2 {
+    background-color: var(--accent-color);
+    color: var(--surface-color);
+    font-size: 1.65rem;
+    padding: 0.65rem 1rem;
+    text-align: center;
+}
+
+.flag {
+    width: 180px;
+    height: auto;
+    margin: 1.25rem auto 0.5rem;
+}
+
+.weather-card {
+    text-align: center;
+}
+
+.weather-icon {
+    width: 70px;
+    height: 70px;
+    margin: 1.25rem auto 0.5rem;
+}
+
+.information-list {
+    padding: 1rem 1.25rem 1.5rem;
+}
+
+.information-list div {
+    display: grid;
+    grid-template-columns: minmax(115px, 1fr) 1.25fr;
+    gap: 0.75rem;
+    border-bottom: 1px solid var(--border-color);
+    padding: 0.55rem 0;
+}
+
+.information-list div:last-child {
+    border-bottom: 0;
+}
+
+.information-list dt {
+    font-weight: 700;
+    text-align: right;
+}
+
+.information-list dd {
+    margin: 0;
+    color: var(--muted-color);
+    text-align: left;
+}
+
+.attraction {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    max-width: 1100px;
+    margin: 1.5rem auto;
+    padding: 1.25rem;
+}
+
+.attraction-text {
+    align-content: center;
+    border-left: 6px solid var(--secondary-color);
+    background-color: var(--surface-color);
+    box-shadow: 0 4px 14px var(--shadow-color);
+    padding: 1.5rem;
+}
+
+.attraction h2 {
+    margin-bottom: 0.75rem;
+    color: var(--primary-color);
+    font-size: clamp(1.55rem, 4vw, 2rem);
+}
+
+.attraction p + p {
+    margin-top: 0.75rem;
+}
+
+.attraction img {
+    width: 100%;
+    height: 300px;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 14px var(--shadow-color);
+    object-fit: cover;
+}
+
+footer {
+    border-top: 8px solid var(--secondary-color);
+    background-color: var(--accent-color);
+    color: var(--surface-color);
+    padding: 1.25rem;
+    text-align: center;
+}
+
+footer p + p {
+    margin-top: 0.25rem;
+}
+
+#lastModified {
+    font-size: 0.9rem;
+}
+
+/* Desktop view */
+
+@media screen and (min-width: 768px) {
+    .hero picture img {
+        height: 650px;
+    }
+
+    .content {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        padding: 3rem clamp(2rem, 6vw, 6rem);
+        pointer-events: none;
+    }
+
+    .card {
+        width: min(360px, 34vw);
+        background-color: #fffffff2;
+        pointer-events: auto;
+    }
+
+    .data-card {
+        align-self: flex-start;
+    }
+
+    .weather-card {
+        align-self: flex-end;
+        margin-bottom: 2rem;
+    }
+
+    .card h2 {
+        position: relative;
+        right: 1rem;
+        width: calc(100% - 1rem);
+        text-align: left;
+    }
+
+    .weather-title::after {
+        content: " ⛅";
+    }
+
+    .weather-icon {
+        display: none;
+    }
+
+    .flag {
+        width: 150px;
+    }
+
+    .attraction {
+        grid-template-columns: 1fr 1fr;
+        align-items: stretch;
+        margin-top: 2.5rem;
+        margin-bottom: 2.5rem;
+    }
+
+    .attraction img {
+        height: 100%;
+        min-height: 330px;
+    }
+}

@@ -6,132 +6,152 @@
 
     <title>Brazil | WDD 131 Country Page</title>
 
-    <meta name="description" content="Country page about Brazil for WDD 131.">
+    <meta
+        name="description"
+        content="Explore Brazil through information about its geography, population, climate, culture, currency, and famous landmarks in this responsive WDD 131 country page."
+    >
     <meta name="author" content="Leandro Moura">
 
-    <link rel="stylesheet" href="styles/local.css">
-
+    <link rel="stylesheet" href="estilos/local.css">
     <script src="scripts/local.js" defer></script>
 </head>
 
 <body>
+    <header>
+        <h1>Brazil</h1>
+    </header>
 
-<header>
-    <h1>Brazil</h1>
-</header>
+    <main>
+        <section class="hero">
+            <picture>
+                <source
+                    srcset="imagens/brazil-large.webp"
+                    media="(min-width: 768px)"
+                >
+                <img
+                    src="imagens/brazil-small.webp"
+                    alt="Beautiful Brazilian landscape"
+                    width="800"
+                    height="1000"
+                    fetchpriority="high"
+                >
+            </picture>
 
-<main>
+            <div class="content">
+                <section class="card data-card">
+                    <h2>Data</h2>
 
-    <section class="hero">
+                    <img
+                        src="imagens/flag.webp"
+                        alt="Flag of Brazil"
+                        class="flag"
+                        width="400"
+                        height="250"
+                        loading="lazy"
+                    >
 
-        <picture>
+                    <dl class="information-list">
+                        <div>
+                            <dt>Capital:</dt>
+                            <dd>Brasília</dd>
+                        </div>
 
-            <!-- Desktop -->
+                        <div>
+                            <dt>Population:</dt>
+                            <dd>212 million</dd>
+                        </div>
 
-            <source
-                srcset="images/brazil-large.webp"
-                media="(min-width: 768px)">
+                        <div>
+                            <dt>Area:</dt>
+                            <dd>8,515,767 km²</dd>
+                        </div>
 
-            <!-- Mobile -->
+                        <div>
+                            <dt>Language:</dt>
+                            <dd>Portuguese</dd>
+                        </div>
 
-            <img
-                src="images/brazil-small.webp"
-                alt="Beautiful landscape of Brazil"
-                loading="lazy">
+                        <div>
+                            <dt>Currency:</dt>
+                            <dd>Brazilian Real (BRL)</dd>
+                        </div>
 
-        </picture>
+                        <div>
+                            <dt>Time Zone:</dt>
+                            <dd>UTC −5 to UTC −2</dd>
+                        </div>
+                    </dl>
+                </section>
 
-    </section>
+                <section class="card weather-card">
+                    <h2 class="weather-title">Weather</h2>
 
+                    <img
+                        src="imagens/weather.svg"
+                        alt="Partly cloudy weather"
+                        class="weather-icon"
+                        width="70"
+                        height="70"
+                    >
 
-    <div class="content">
+                    <dl class="information-list">
+                        <div>
+                            <dt>Temperature:</dt>
+                            <dd><span id="temperature">8</span> °C</dd>
+                        </div>
 
-        <section class="card">
+                        <div>
+                            <dt>Conditions:</dt>
+                            <dd>Partly Cloudy</dd>
+                        </div>
 
-            <h2>Data</h2>
+                        <div>
+                            <dt>Wind:</dt>
+                            <dd><span id="windSpeed">10</span> km/h</dd>
+                        </div>
 
-            <img
-                src="images/flag.webp"
-                alt="Flag of Brazil"
-                class="flag">
-
-            <ul>
-
-                <li><strong>Capital:</strong> Brasília</li>
-
-                <li><strong>Population:</strong> 212 Million</li>
-
-                <li><strong>Area:</strong> 8,515,767 km²</li>
-
-                <li><strong>Language:</strong> Portuguese</li>
-
-                <li><strong>Currency:</strong> Brazilian Real (BRL)</li>
-
-                <li><strong>Time Zone:</strong> UTC −5 to UTC −2</li>
-
-            </ul>
-
+                        <div>
+                            <dt>Wind Chill:</dt>
+                            <dd><span id="windChill">N/A</span></dd>
+                        </div>
+                    </dl>
+                </section>
+            </div>
         </section>
 
+        <section class="attraction">
+            <div class="attraction-text">
+                <h2>One of Brazil's Greatest Symbols</h2>
 
-        <section class="card weather">
+                <p>
+                    Christ the Redeemer is one of the most famous monuments in
+                    the world. Located in Rio de Janeiro, it represents peace
+                    and welcomes millions of visitors every year.
+                </p>
 
-            <h2 class="weather-title">Weather</h2>
+                <p>
+                    The monument stands on Corcovado Mountain and is recognized
+                    as an important cultural symbol of Brazil.
+                </p>
+            </div>
 
             <img
-                src="images/weather.svg"
-                alt="Weather icon"
-                class="weather-icon">
-
-            <ul>
-
-                <li><strong>Temperature:</strong> <span id="temperature">8</span> °C</li>
-
-                <li><strong>Conditions:</strong> Partly Cloudy</li>
-
-                <li><strong>Wind:</strong> <span id="windSpeed">10</span> km/h</li>
-
-                <li><strong>Wind Chill:</strong> <span id="windChill"></span></li>
-
-            </ul>
-
+                src="imagens/christ.webp"
+                alt="Christ the Redeemer monument in Rio de Janeiro"
+                width="800"
+                height="600"
+                loading="lazy"
+            >
         </section>
+    </main>
 
-    </div>
-
-
-    <section class="attraction">
-
-        <h2>One of Brazil's Greatest Symbols</h2>
-
-        <img
-            src="images/christ.webp"
-            alt="Christ the Redeemer"
-            loading="lazy">
-
+    <footer>
         <p>
-            Christ the Redeemer is one of the most famous monuments in the world.
-            Located in Rio de Janeiro, it represents peace and welcomes millions
-            of visitors every year. It is one of the New Seven Wonders of the World
-            and an iconic symbol of Brazil.
+            &copy; <span id="currentyear"></span>
+            Leandro Moura | Brazil
         </p>
 
-    </section>
-
-</main>
-
-
-<footer>
-
-    <p>
-        &copy;
-        <span id="currentyear"></span>
-        Leandro Moura | Brazil
-    </p>
-
-    <p id="lastModified"></p>
-
-</footer>
-
+        <p id="lastModified"></p>
+    </footer>
 </body>
 </html>
