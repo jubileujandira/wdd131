@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Brazil | WDD 131 Country Page</title>
+
+    <meta name="description" content="Country page about Brazil for WDD 131.">
+    <meta name="author" content="Leandro Moura">
+
+    <link rel="stylesheet" href="styles/local.css">
+
+    <script src="scripts/local.js" defer></script>
+</head>
+
+<body>
+
+<header>
+    <h1>Brazil</h1>
+</header>
+
+<main>
+
+    <section class="hero">
+
+        <picture>
+
+            <!-- Desktop -->
+
+            <source
+                srcset="images/brazil-large.webp"
+                media="(min-width: 768px)">
+
+            <!-- Mobile -->
+
+            <img
+                src="images/brazil-small.webp"
+                alt="Beautiful landscape of Brazil"
+                loading="lazy">
+
+        </picture>
+
+    </section>
+
+
+    <div class="content">
+
+        <section class="card">
+
+            <h2>Data</h2>
+
+            <img
+                src="images/flag.webp"
+                alt="Flag of Brazil"
+                class="flag">
+
+            <ul>
+
+                <li><strong>Capital:</strong> Brasília</li>
+
+                <li><strong>Population:</strong> 212 Million</li>
+
+                <li><strong>Area:</strong> 8,515,767 km²</li>
+
+                <li><strong>Language:</strong> Portuguese</li>
+
+                <li><strong>Currency:</strong> Brazilian Real (BRL)</li>
+
+                <li><strong>Time Zone:</strong> UTC −5 to UTC −2</li>
+
+            </ul>
+
+        </section>
+
+
+        <section class="card weather">
+
+            <h2 class="weather-title">Weather</h2>
+
+            <img
+                src="images/weather.svg"
+                alt="Weather icon"
+                class="weather-icon">
+
+            <ul>
+
+                <li><strong>Temperature:</strong> <span id="temperature">8</span> °C</li>
+
+                <li><strong>Conditions:</strong> Partly Cloudy</li>
+
+                <li><strong>Wind:</strong> <span id="windSpeed">10</span> km/h</li>
+
+                <li><strong>Wind Chill:</strong> <span id="windChill"></span></li>
+
+            </ul>
+
+        </section>
+
+    </div>
+
+
+    <section class="attraction">
+
+        <h2>One of Brazil's Greatest Symbols</h2>
+
+        <img
+            src="images/christ.webp"
+            alt="Christ the Redeemer"
+            loading="lazy">
+
+        <p>
+            Christ the Redeemer is one of the most famous monuments in the world.
+            Located in Rio de Janeiro, it represents peace and welcomes millions
+            of visitors every year. It is one of the New Seven Wonders of the World
+            and an iconic symbol of Brazil.
+        </p>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    <p>
+        &copy;
+        <span id="currentyear"></span>
+        Leandro Moura | Brazil
+    </p>
+
+    <p id="lastModified"></p>
+
+</footer>
+
+</body>
+</html>
