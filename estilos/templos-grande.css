@@ -1,29 +1,34 @@
-@media screen and (min-width:700px){
+@media screen and (min-width: 700px) {
 
-#menu{
+    header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
 
-display:none;
+    #menuButton {
+        display: none;
+    }
 
+    #menu {
+        display: flex;
+        flex-direction: row;
+        margin-top: 0;
+        gap: 0.5rem;
+    }
+
+    #menu a {
+        padding: 0.7rem 1rem;
+    }
+
+    .galeria {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
-nav{
+@media screen and (min-width: 1000px) {
 
-display:flex;
-
-flex-direction:row;
-
-justify-content:center;
-
-gap:20px;
-
-margin-top:15px;
-
-}
-
-.galeria{
-
-grid-template-columns:repeat(3,1fr);
-
-}
-
+    .galeria {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
