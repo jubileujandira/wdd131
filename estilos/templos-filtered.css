@@ -11,10 +11,10 @@ body {
 }
 
 header {
+    position: relative;
     background-color: #4b1470;
     color: white;
     padding: 1rem;
-    position: relative;
 }
 
 .titulo {
@@ -31,6 +31,11 @@ header {
     color: white;
     font-size: 2rem;
     cursor: pointer;
+}
+
+#menuButton:focus {
+    outline: 2px solid white;
+    outline-offset: 4px;
 }
 
 #menu {
@@ -76,6 +81,8 @@ h1 {
 }
 
 .temple-card {
+    display: flex;
+    flex-direction: column;
     background-color: white;
     padding: 1rem;
     border-radius: 6px;
@@ -84,8 +91,9 @@ h1 {
     overflow: hidden;
 }
 
-.temple-card h3 {
+.temple-card h2 {
     color: #4b1470;
+    font-size: 1.2rem;
     margin-bottom: 0.8rem;
 }
 
@@ -103,7 +111,8 @@ h1 {
     width: 100%;
     height: 250px;
     object-fit: cover;
-    margin-top: 1rem;
+    margin-top: auto;
+    padding-top: 1rem;
     border-radius: 4px;
 }
 
