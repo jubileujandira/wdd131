@@ -8,102 +8,90 @@ body {
     font-family: "Roboto", sans-serif;
     background-color: #f5f5f5;
     color: #222;
+    line-height: 1.5;
 }
 
 header {
-    position: relative;
-    background-color: #4b1470;
+    background-color: #0b3d91;
     color: white;
     padding: 1rem;
 }
 
 .titulo {
-    font-size: 1.7rem;
+    font-size: 1.5rem;
     font-weight: 700;
 }
 
 #menuButton {
-    position: absolute;
-    top: 12px;
-    right: 20px;
-    background: none;
-    border: none;
+    margin-top: .75rem;
+    padding: .5rem .75rem;
+    font-size: 1.4rem;
+    background: transparent;
+    border: 1px solid white;
     color: white;
-    font-size: 2rem;
     cursor: pointer;
 }
 
-#menuButton:focus {
-    outline: 2px solid white;
-    outline-offset: 4px;
-}
-
+/* IMPORTANTE: o nav já é flex */
 #menu {
-    display: none;
+    display: flex;
     flex-direction: column;
     margin-top: 1rem;
 }
 
-#menu.open {
-    display: flex;
+/* Esconde quando fechado */
+#menu:not(.open) {
+    display: none;
 }
 
 #menu a {
     color: white;
     text-decoration: none;
-    padding: 0.8rem;
-    text-align: center;
+    padding: .75rem;
     border-radius: 4px;
 }
 
-#menu a:hover,
-#menu a:focus {
-    background-color: white;
-    color: #4b1470;
+#menu a:hover {
+    background-color: rgba(255,255,255,.2);
 }
 
 main {
-    max-width: 1100px;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 1.5rem;
+    padding: 1rem;
 }
 
-h1 {
+main h1 {
     text-align: center;
     margin-bottom: 1.5rem;
-    color: #4b1470;
 }
 
 .galeria {
     display: grid;
-    grid-template-columns: 1fr;
     gap: 1.5rem;
 }
 
 .temple-card {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,.15);
     display: flex;
     flex-direction: column;
-    background-color: white;
-    padding: 1rem;
-    border-radius: 6px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    overflow: hidden;
 }
 
 .temple-card h2 {
-    color: #4b1470;
-    font-size: 1.2rem;
-    margin-bottom: 0.8rem;
+    text-align: center;
+    padding: 1rem .5rem .5rem;
 }
 
 .temple-card p {
-    margin-bottom: 0.5rem;
-    line-height: 1.4;
+    padding: 0 .75rem;
+    margin-bottom: .5rem;
 }
 
 .label {
-    font-weight: 700;
+    font-weight: bold;
 }
 
 .temple-card img {
@@ -112,18 +100,13 @@ h1 {
     height: 250px;
     object-fit: cover;
     margin-top: auto;
-    padding-top: 1rem;
     border-radius: 4px;
 }
 
 footer {
-    background-color: #4b1470;
+    background: #0b3d91;
     color: white;
     text-align: center;
-    padding: 1.2rem;
+    padding: 1rem;
     margin-top: 2rem;
-}
-
-footer p {
-    margin: 0.3rem 0;
 }
