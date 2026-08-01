@@ -3,13 +3,14 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
     <meta
         name="description"
         content="Formulário para usuários enviarem uma revisão de produto na disciplina WDD 131."
     >
-
     <meta
         name="author"
         content="José Leandro da Silva Moura"
@@ -29,20 +30,16 @@
 </head>
 
 <body>
-
     <header>
         <h1>Revisão de Produto</h1>
     </header>
 
     <main>
-
         <form
             method="get"
             action="avaliacao.html"
         >
-
             <div class="campo">
-
                 <label for="produto">
                     Nome do Produto
                     <span
@@ -56,17 +53,11 @@
                     name="produto"
                     required
                 >
-                    <option
-                        value=""
-                        disabled
-                        selected
-                    >Selecione um Produto ...</option>
+                    <option value="" disabled selected>Selecione um Produto...</option>
                 </select>
-
             </div>
 
             <fieldset class="campo">
-
                 <legend>
                     Classificação Geral
                     <span
@@ -76,14 +67,9 @@
                 </legend>
 
                 <div class="classificacao">
-
                     <label for="nota1">
-
                         <span aria-hidden="true">☆</span>
-
-                        <span class="texto-leitor">
-                            1 estrela
-                        </span>
+                        <span class="texto-leitor">1 estrela</span>
 
                         <input
                             type="radio"
@@ -92,16 +78,11 @@
                             value="1"
                             required
                         >
-
                     </label>
 
                     <label for="nota2">
-
                         <span aria-hidden="true">☆☆</span>
-
-                        <span class="texto-leitor">
-                            2 estrelas
-                        </span>
+                        <span class="texto-leitor">2 estrelas</span>
 
                         <input
                             type="radio"
@@ -110,16 +91,11 @@
                             value="2"
                             required
                         >
-
                     </label>
 
                     <label for="nota3">
-
                         <span aria-hidden="true">☆☆☆</span>
-
-                        <span class="texto-leitor">
-                            3 estrelas
-                        </span>
+                        <span class="texto-leitor">3 estrelas</span>
 
                         <input
                             type="radio"
@@ -128,16 +104,11 @@
                             value="3"
                             required
                         >
-
                     </label>
 
                     <label for="nota4">
-
                         <span aria-hidden="true">☆☆☆☆</span>
-
-                        <span class="texto-leitor">
-                            4 estrelas
-                        </span>
+                        <span class="texto-leitor">4 estrelas</span>
 
                         <input
                             type="radio"
@@ -146,16 +117,11 @@
                             value="4"
                             required
                         >
-
                     </label>
 
                     <label for="nota5">
-
                         <span aria-hidden="true">☆☆☆☆☆</span>
-
-                        <span class="texto-leitor">
-                            5 estrelas
-                        </span>
+                        <span class="texto-leitor">5 estrelas</span>
 
                         <input
                             type="radio"
@@ -164,15 +130,11 @@
                             value="5"
                             required
                         >
-
                     </label>
-
                 </div>
-
             </fieldset>
 
             <div class="campo">
-
                 <label for="data-instalacao">
                     Data de Instalação
                     <span
@@ -187,11 +149,9 @@
                     name="data-instalacao"
                     required
                 >
-
             </div>
 
             <fieldset class="campo recursos">
-
                 <legend>
                     Quais recursos você achou úteis no produto?
 
@@ -201,61 +161,47 @@
                 </legend>
 
                 <label for="durabilidade">
-
                     <input
                         type="checkbox"
                         id="durabilidade"
                         name="recursos"
                         value="durabilidade"
                     >
-
                     Durabilidade
-
                 </label>
 
                 <label for="facilidade-uso">
-
                     <input
                         type="checkbox"
                         id="facilidade-uso"
                         name="recursos"
                         value="facilidade-de-uso"
                     >
-
                     Facilidade de Uso
-
                 </label>
 
                 <label for="desempenho">
-
                     <input
                         type="checkbox"
                         id="desempenho"
                         name="recursos"
                         value="desempenho"
                     >
-
                     Desempenho
-
                 </label>
 
                 <label for="design">
-
                     <input
                         type="checkbox"
                         id="design"
                         name="recursos"
                         value="design"
                     >
-
                     Design
-
                 </label>
-
             </fieldset>
 
             <div class="campo">
-
                 <label for="avaliacao-escrita">
                     Avaliação Escrita
                     <span class="opcional">
@@ -268,11 +214,9 @@
                     name="avaliacao-escrita"
                     rows="6"
                 ></textarea>
-
             </div>
 
             <div class="campo">
-
                 <label for="nome-usuario">
                     Seu Nome
                     <span class="opcional">
@@ -286,7 +230,6 @@
                     name="nome-usuario"
                     autocomplete="name"
                 >
-
             </div>
 
             <input
@@ -294,13 +237,10 @@
                 class="botao-enviar"
                 value="Publicar Avaliação"
             >
-
         </form>
-
     </main>
 
     <footer>
-
         <p>
             &copy;
             <span id="ano-atual"></span>
@@ -308,9 +248,7 @@
         </p>
 
         <p id="ultima-modificacao"></p>
-
     </footer>
-
 </body>
 
 </html>
