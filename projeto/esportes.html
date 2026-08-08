@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+        content="Aprenda conceitos introdutórios sobre apostas esportivas, odds e mercados no Ginga Analytics.">
+
+    <meta name="author" content="José Leandro da Silva Moura">
+
+    <title>Apostas Esportivas | Ginga Analytics</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Roboto:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="styles/site.css">
+
+    <script src="scripts/site.js" defer></script>
+</head>
+
+<body>
+
+    <header>
+        <div class="header-content">
+
+            <a class="brand" href="index.html">
+                <img
+                    src="images/logo.png"
+                    alt="Logotipo Ginga Analytics"
+                    width="60"
+                    height="60">
+
+                <span>Ginga Analytics</span>
+            </a>
+
+            <button
+                id="menuButton"
+                class="menu-button"
+                type="button"
+                aria-label="Abrir menu"
+                aria-expanded="false">
+                ☰
+            </button>
+
+            <nav id="mainNav" aria-label="Navegação principal">
+
+                <a href="index.html">
+                    Início
+                </a>
+
+                <a class="active" href="esportes.html">
+                    Apostas esportivas
+                </a>
+
+                <a href="cassino.html">
+                    Cassino e responsabilidade
+                </a>
+
+            </nav>
+
+        </div>
+    </header>
+
+
+    <main>
+
+        <section class="page-banner">
+
+            <p class="eyebrow">
+                Fundamentos
+            </p>
+
+            <h1>
+                Apostas esportivas
+            </h1>
+
+            <p>
+                Entenda conceitos básicos como odds, mercados
+                e retorno potencial de uma aposta.
+            </p>
+
+        </section>
+
+
+        <section class="section">
+
+            <div class="two-columns">
+
+                <div>
+
+                    <p class="eyebrow">
+                        Odds decimais
+                    </p>
+
+                    <h2>
+                        Como funcionam as odds?
+                    </h2>
+
+                    <p>
+                        Uma odd representa a cotação oferecida para uma
+                        determinada seleção.
+                    </p>
+
+                    <p>
+                        Nas odds decimais, o retorno bruto potencial pode
+                        ser obtido multiplicando o valor da aposta pela odd.
+                    </p>
+
+                    <p>
+                        Utilize a calculadora ao lado para visualizar um
+                        exemplo.
+                    </p>
+
+                </div>
+
+
+                <div class="calculator-box">
+
+                    <h2>
+                        Calculadora de retorno
+                    </h2>
+
+                    <label for="stake">
+                        Valor da aposta (R$)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="stake"
+                        min="1"
+                        step="0.01"
+                        placeholder="Ex.: 20.00">
+
+
+                    <label for="odd">
+                        Odd decimal
+                    </label>
+
+                    <input
+                        type="number"
+                        id="odd"
+                        min="1.01"
+                        step="0.01"
+                        placeholder="Ex.: 2.00">
+
+
+                    <button
+                        id="calculateReturn"
+                        class="button"
+                        type="button">
+
+                        Calcular retorno
+
+                    </button>
+
+
+                    <p
+                        id="returnResult"
+                        class="result"
+                        aria-live="polite">
+
+                        Preencha os campos para fazer a simulação.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="section visual-section">
+
+            <div class="section-heading">
+
+                <p class="eyebrow">
+                    Análise esportiva
+                </p>
+
+                <h2>
+                    Informação faz parte das apostas esportivas
+                </h2>
+
+                <p>
+                    Estatísticas, mercados e probabilidades ajudam a
+                    compreender melhor os diferentes cenários de um
+                    evento esportivo.
+                </p>
+
+            </div>
+
+            <img
+                class="content-image"
+                src="images/apostas-esportivas.png"
+                alt="Ilustração de análise esportiva com futebol, estatísticas e odds"
+                width="1536"
+                height="1024"
+                loading="lazy">
+
+        </section>
+
+
+        <section class="section light-section">
+
+            <div class="section-heading">
+
+                <p class="eyebrow">
+                    Exemplos
+                </p>
+
+                <h2>
+                    Mercados comuns
+                </h2>
+
+                <p>
+                    Existem diversos tipos de mercados em apostas
+                    esportivas. Veja alguns exemplos comuns.
+                </p>
+
+            </div>
+
+
+            <div class="card-grid">
+
+                <article class="card">
+
+                    <h3>
+                        Resultado da partida
+                    </h3>
+
+                    <p>
+                        Mercado relacionado ao resultado final de uma
+                        partida, podendo apresentar opções como vitória
+                        da equipe da casa, empate ou vitória da equipe
+                        visitante.
+                    </p>
+
+                </article>
+
+
+                <article class="card">
+
+                    <h3>
+                        Total de gols
+                    </h3>
+
+                    <p>
+                        Considera se a quantidade total de gols ficará
+                        acima ou abaixo de uma linha definida para o
+                        evento.
+                    </p>
+
+                </article>
+
+
+                <article class="card">
+
+                    <h3>
+                        Ambas marcam
+                    </h3>
+
+                    <p>
+                        Mercado relacionado à possibilidade de as duas
+                        equipes marcarem pelo menos um gol durante a
+                        partida.
+                    </p>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <section class="section">
+
+            <div class="section-heading">
+
+                <p class="eyebrow">
+                    Personalização
+                </p>
+
+                <h2>
+                    Qual assunto mais interessa você?
+                </h2>
+
+                <p>
+                    Escolha um tema para estudar. Sua preferência ficará
+                    salva neste navegador.
+                </p>
+
+            </div>
+
+
+            <div class="favorite-box">
+
+                <label for="favoriteTopic">
+                    Tema favorito
+                </label>
+
+                <select id="favoriteTopic">
+
+                    <option value="">
+                        Selecione uma opção
+                    </option>
+
+                    <option value="Odds">
+                        Odds
+                    </option>
+
+                    <option value="Mercados">
+                        Mercados
+                    </option>
+
+                    <option value="Estatísticas">
+                        Estatísticas
+                    </option>
+
+                    <option value="Jogo responsável">
+                        Jogo responsável
+                    </option>
+
+                </select>
+
+
+                <button
+                    id="saveFavorite"
+                    class="button secondary"
+                    type="button">
+
+                    Salvar preferência
+
+                </button>
+
+
+                <p
+                    id="favoriteMessage"
+                    class="result"
+                    aria-live="polite">
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        <p>
+            © <span id="currentYear"></span>
+            José Leandro da Silva Moura | WDD 131
+        </p>
+
+        <p>
+            <a href="referencias.html">
+                Referências e fontes
+            </a>
+        </p>
+
+    </footer>
+
+</body>
+
+</html>

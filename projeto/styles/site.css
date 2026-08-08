@@ -1,0 +1,503 @@
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --navy: #0b1f3a;
+    --navy-light: #15345f;
+    --orange: #f7931e;
+    --orange-dark: #c96800;
+    --white: #ffffff;
+    --light: #f4f4f4;
+    --text: #1f2937;
+    --muted: #5f6875;
+    --border: #d6dbe1;
+    --max-width: 1120px;
+    --radius: 14px;
+    --shadow: 0 8px 24px rgba(11, 31, 58, 0.10);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: "Roboto", Arial, sans-serif;
+    color: var(--text);
+    background-color: var(--white);
+    line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+.brand,
+nav a,
+.button {
+    font-family: "Poppins", Arial, sans-serif;
+}
+
+h1,
+h2,
+h3,
+p {
+    margin-top: 0;
+}
+
+h1 {
+    font-size: clamp(2.2rem, 5vw, 4.2rem);
+    line-height: 1.1;
+    color: var(--navy);
+}
+
+h2 {
+    color: var(--navy);
+    font-size: clamp(1.7rem, 3vw, 2.4rem);
+    line-height: 1.2;
+}
+
+a {
+    color: var(--navy);
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+header {
+    background-color: var(--navy);
+    color: var(--white);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+}
+
+.header-content {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0.8rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+}
+
+.brand {
+    color: var(--white);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-weight: 700;
+}
+
+.brand img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+nav a {
+    color: var(--white);
+    text-decoration: none;
+    padding: 0.65rem 0.8rem;
+    border-radius: 8px;
+    font-size: 0.92rem;
+}
+
+nav a:hover,
+nav a.active {
+    background-color: var(--orange);
+    color: #111827;
+}
+
+.menu-button {
+    display: none;
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    background-color: transparent;
+    color: var(--white);
+    border-radius: 8px;
+    padding: 0.45rem 0.65rem;
+    font-size: 1.4rem;
+    cursor: pointer;
+}
+
+.hero {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 5rem 1.25rem;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: center;
+    gap: 3rem;
+}
+
+.hero-text > p:not(.eyebrow) {
+    max-width: 620px;
+    color: var(--muted);
+    font-size: 1.1rem;
+}
+
+.hero-card {
+    background-color: var(--navy);
+    color: var(--white);
+    padding: 2rem;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+.hero-card h2 {
+    color: var(--white);
+}
+
+.hero-card ul {
+    margin: 0;
+    padding-left: 1.25rem;
+}
+
+.hero-card li {
+    margin-bottom: 0.65rem;
+}
+
+.eyebrow {
+    color: var(--orange-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-weight: 700;
+    font-size: 0.82rem;
+}
+
+.button {
+    display: inline-block;
+    border: 0;
+    border-radius: 9px;
+    padding: 0.8rem 1.15rem;
+    background-color: var(--orange);
+    color: #111827;
+    text-decoration: none;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #ffad4a;
+}
+
+.button.secondary {
+    background-color: var(--navy);
+    color: var(--white);
+}
+
+.button.secondary:hover {
+    background-color: var(--navy-light);
+}
+
+.section {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 4.5rem 1.25rem;
+}
+
+.section-heading {
+    max-width: 720px;
+    margin-bottom: 2rem;
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+}
+
+.card {
+    background-color: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+}
+
+.card h3 {
+    color: var(--navy);
+}
+
+.topic-icon {
+    display: inline-grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: #fff1df;
+    font-size: 1.4rem;
+    margin-bottom: 0.8rem;
+}
+
+.light-section {
+    max-width: none;
+    background-color: var(--light);
+}
+
+.light-section > * {
+    max-width: var(--max-width);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.two-columns {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+    gap: 3rem;
+}
+
+.odds-example {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.odd-box {
+    background-color: var(--navy);
+    color: var(--white);
+    padding: 1.4rem 1rem;
+    border-radius: var(--radius);
+    text-align: center;
+    box-shadow: var(--shadow);
+}
+
+.odd-box span {
+    display: block;
+    font-size: 0.9rem;
+    margin-bottom: 0.4rem;
+}
+
+.odd-box strong {
+    color: var(--orange);
+    font-size: 1.8rem;
+}
+
+.text-link {
+    font-weight: 700;
+    color: var(--orange-dark);
+}
+
+.responsible-box {
+    background-color: var(--navy);
+    color: var(--white);
+    padding: 2.2rem;
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+.responsible-box h2 {
+    color: var(--white);
+}
+
+.responsible-box p {
+    max-width: 720px;
+}
+
+footer {
+    background-color: #07152a;
+    color: var(--white);
+    text-align: center;
+    padding: 2rem 1.25rem;
+}
+
+footer a {
+    color: #ffb65e;
+}
+.page-banner {
+    background-color: var(--navy);
+    color: var(--white);
+    padding: 4.5rem max(
+        1.25rem,
+        calc((100% - var(--max-width)) / 2 + 1.25rem)
+    );
+}
+
+.page-banner h1 {
+    color: var(--white);
+    max-width: 800px;
+    font-size: clamp(2.2rem, 5vw, 3.7rem);
+}
+
+.page-banner > p:last-child {
+    max-width: 720px;
+}
+
+.calculator-box,
+.favorite-box {
+    background-color: var(--light);
+    padding: 1.5rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+}
+
+.calculator-box {
+    display: grid;
+    gap: 0.7rem;
+}
+
+.calculator-box label,
+.favorite-box label {
+    font-weight: 700;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #9ba3ad;
+    border-radius: 8px;
+    background-color: var(--white);
+    font: inherit;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: 3px solid rgba(247, 147, 30, 0.35);
+    border-color: var(--orange-dark);
+}
+
+.result {
+    min-height: 1.5rem;
+    font-weight: 700;
+}
+
+.favorite-box {
+    max-width: 620px;
+    display: grid;
+    gap: 0.8rem;
+}
+.form-wrapper {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 3rem;
+    align-items: start;
+}
+
+form {
+    display: grid;
+    gap: 0.8rem;
+    background-color: var(--light);
+    padding: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+}
+
+form > label,
+legend {
+    font-weight: 700;
+}
+
+fieldset {
+    border: 1px solid #9ba3ad;
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+.radio-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    margin-top: 0.7rem;
+    font-weight: 400;
+}
+
+.radio-label input {
+    width: auto;
+    margin-top: 0.35rem;
+}
+.references {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 3rem 1.25rem;
+}
+
+.references h1 {
+    color: var(--navy);
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+}
+
+.references h2 {
+    margin-top: 2rem;
+}
+.visual-section {
+    text-align: center;
+}
+
+.visual-section .section-heading {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.content-image {
+    width: 100%;
+    max-width: 850px;
+    height: auto;
+    margin: 0 auto;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+@media (max-width: 760px) {
+
+    .header-content {
+        flex-wrap: wrap;
+    }
+
+    .menu-button {
+        display: block;
+    }
+
+    nav {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        padding-bottom: 0.6rem;
+    }
+
+    nav.open {
+        display: flex;
+    }
+
+    nav a {
+        text-align: center;
+    }
+
+    .hero,
+.two-columns,
+.card-grid,
+.form-wrapper {
+    grid-template-columns: 1fr;
+}
+
+    .odds-example {
+        grid-template-columns: 1fr;
+    }
+
+    .hero {
+        padding-top: 3rem;
+    }
+
+    .responsible-box {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
