@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz iGaming - Cadastro, KYC e Jogo Responsável</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="quiz-shell">
+    <section class="card" id="introCard">
+      <p class="eyebrow">TREINAMENTO INTERNO</p>
+      <h1>Quiz iGaming</h1>
+      <p class="subtitle">Cadastro, KYC e Jogo Responsável</p>
+
+      <div class="notice">
+        <strong>Atenção:</strong> após iniciar, sair da aba, minimizar a janela ou deixar a página invisível encerra a avaliação e registra nota zero.
+      </div>
+
+      <label for="participantName">Nome do participante</label>
+      <input id="participantName" type="text" autocomplete="name" placeholder="Digite seu nome" maxlength="80">
+
+      <button id="startBtn" type="button">Iniciar avaliação</button>
+    </section>
+
+    <section class="card hidden" id="quizCard">
+      <div class="quiz-top">
+        <div>
+          <p class="eyebrow">AVALIAÇÃO EM ANDAMENTO</p>
+          <h2 id="questionTitle">Pergunta</h2>
+        </div>
+        <span id="progressText">1/12</span>
+      </div>
+
+      <div class="progress-track" aria-hidden="true">
+        <div id="progressBar" class="progress-bar"></div>
+      </div>
+
+      <form id="quizForm">
+        <div id="questionArea"></div>
+        <button id="nextBtn" type="button">Próxima</button>
+      </form>
+    </section>
+
+    <section class="card hidden" id="endCard">
+      <p class="eyebrow">AVALIAÇÃO ENCERRADA</p>
+      <h2 id="endTitle">Respostas enviadas</h2>
+      <p id="endMessage">Obrigado pela participação.</p>
+    </section>
+  </main>
+
+  <form id="resultForm"
+        action="https://formsubmit.co/leandroarcres@gmail.com"
+        method="POST"
+        target="hiddenFrame">
+    <input type="hidden" name="_subject" value="Resultado Quiz iGaming - Cadastro/KYC">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_template" value="table">
+    <input type="hidden" name="Nome" id="mailName">
+    <input type="hidden" name="Nota" id="mailScore">
+    <input type="hidden" name="Acertos" id="mailCorrect">
+    <input type="hidden" name="Status" id="mailStatus">
+    <input type="hidden" name="DataHora" id="mailDate">
+    <input type="hidden" name="Detalhes" id="mailDetails">
+  </form>
+
+  <iframe name="hiddenFrame" class="hidden-frame" title="Envio de resultado"></iframe>
+
+  <script src="script.js"></script>
+</body>
+</html>
