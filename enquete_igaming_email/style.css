@@ -1,0 +1,65 @@
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--fundo:#070b10;--card:#111822;--card2:#0c1219;--borda:#223247;--verde:#20d475;--verde2:#119c52;--texto:#f4f7fb;--muted:#a9b4c3;--erro:#ff4d5a}
+body{min-height:100vh;font-family:Arial,Helvetica,sans-serif;color:var(--texto);background:radial-gradient(circle at top,rgba(32,212,117,.18),transparent 30%),linear-gradient(180deg,#090e15,var(--fundo));padding:32px 16px}
+.container{width:min(900px,100%);margin:auto}
+.inicio-card,.resultado{background:linear-gradient(180deg,#121b27,var(--card));border:1px solid var(--borda);border-radius:20px;padding:35px;text-align:center;box-shadow:0 14px 35px rgba(0,0,0,.22)}
+.inicio-card{max-width:720px;margin:80px auto}
+.inicio-card h1{font-size:clamp(2rem,6vw,3.4rem);margin-bottom:15px}
+.inicio-card p{color:var(--muted);line-height:1.6;margin:10px auto}
+.aviso-inicial{color:#f4db85!important}
+.topo{text-align:center;margin-bottom:24px}
+.badge{display:inline-block;background:linear-gradient(135deg,var(--verde),var(--verde2));padding:8px 14px;border-radius:999px;font-size:.78rem;font-weight:800;letter-spacing:.08em;margin-bottom:14px}
+h1{font-size:clamp(2rem,6vw,3.4rem);margin-bottom:12px}
+.topo p{color:var(--muted);max-width:720px;margin:auto;line-height:1.6}
+.aviso{margin-bottom:18px;border:1px solid #8c6f19;background:#251f0d;color:#f4db85;padding:15px 16px;border-radius:12px;line-height:1.5}
+.quiz-card{background:linear-gradient(180deg,#121b27,var(--card));border:1px solid var(--borda);border-radius:18px;padding:24px;margin-bottom:18px;box-shadow:0 14px 35px rgba(0,0,0,.22)}
+.numero{color:var(--verde);font-weight:800;font-size:.82rem;text-transform:uppercase;letter-spacing:.08em;margin-bottom:9px}
+.quiz-card h2{font-size:1.08rem;line-height:1.5;margin-bottom:17px}
+.quiz-card label{display:flex;gap:11px;align-items:flex-start;margin-top:10px;padding:13px 14px;background:var(--card2);border:1px solid #26374c;border-radius:11px;cursor:pointer;transition:.2s}
+.quiz-card label:hover{border-color:var(--verde);background:#102018;transform:translateY(-1px)}
+.quiz-card input{margin-top:3px;accent-color:var(--verde)}
+.acoes{text-align:center;padding:14px 0 30px}
+button{border:0;border-radius:12px;padding:15px 34px;background:linear-gradient(135deg,var(--verde),var(--verde2));color:white;font-size:1rem;font-weight:800;cursor:pointer;box-shadow:0 10px 30px rgba(32,212,117,.2)}
+button:hover{filter:brightness(1.08)}
+.resultado h2{margin-bottom:10px}
+.resultado p{color:var(--muted);line-height:1.6}
+.resultado.zero{border-color:rgba(255,77,90,.55);background:#211014}
+.resultado.zero h2{color:var(--erro)}
+.escondido{display:none!important}
+@media(max-width:600px){body{padding:20px 10px}.quiz-card,.inicio-card{padding:18px;border-radius:14px}.inicio-card{margin:30px auto}}
+
+
+.campo-nome {
+  max-width: 430px;
+  margin: 24px auto 18px;
+  text-align: left;
+}
+
+.campo-nome label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 800;
+  color: var(--texto);
+}
+
+.campo-nome input {
+  width: 100%;
+  border: 1px solid #2c4057;
+  background: #0b1119;
+  color: var(--texto);
+  border-radius: 11px;
+  padding: 14px 15px;
+  font-size: 1rem;
+  outline: none;
+}
+
+.campo-nome input:focus {
+  border-color: var(--verde);
+  box-shadow: 0 0 0 3px rgba(32, 212, 117, .12);
+}
+
+.erro-nome {
+  color: #ff8b94 !important;
+  margin-top: 12px !important;
+  font-weight: 700;
+}

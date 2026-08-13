@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enquete iGaming - Treinamento Interno</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="container">
+    <section id="telaInicial" class="inicio-card">
+      <span class="badge">TREINAMENTO INTERNO</span>
+      <h1>Quiz iGaming 🎰</h1>
+      <p>
+        Esta enquete possui controle de foco. Depois de iniciar, não troque de aba,
+        não minimize o navegador e não abra outra janela.
+      </p>
+      <p class="aviso-inicial">
+        Se a página perder o foco após o início, a enquete será encerrada com nota zero.
+      </p>
+      <div class="campo-nome">
+        <label for="nomeAnalista">Nome da analista</label>
+        <input id="nomeAnalista" type="text" autocomplete="name"
+               placeholder="Digite seu nome completo" required>
+      </div>
+      <button id="btnIniciar" type="button">Iniciar enquete</button>
+      <p id="erroNome" class="erro-nome escondido">Informe seu nome antes de iniciar.</p>
+    </section>
+
+    <section id="quizArea" class="escondido">
+      <header class="topo">
+        <span class="badge">ENQUETE EM ANDAMENTO</span>
+        <h1>Quiz iGaming 🎰</h1>
+        <p>Responda às 12 questões sem sair desta página.</p>
+      </header>
+
+      <section class="aviso">
+        <strong>⚠ Atenção:</strong>
+        trocar de aba, minimizar o navegador ou abrir outra janela encerra a enquete com nota zero.
+      </section>
+
+      <form id="quizForm">
+        <section class="quiz-card">
+          <p class="numero">Pergunta 01</p>
+          <h2>Um jogador apostou R$ 500 em uma odd 2.40. A aposta foi vencedora. Qual foi o lucro líquido do jogador?</h2>
+          <label><input required type="radio" name="q1" value="A"> A) R$ 700</label>
+          <label><input type="radio" name="q1" value="B"> B) R$ 1.200</label>
+          <label><input type="radio" name="q1" value="C"> C) R$ 500</label>
+          <label><input type="radio" name="q1" value="D"> D) R$ 1.700</label>
+        </section>
+
+        <section class="quiz-card">
+          <p class="numero">Pergunta 02</p>
+          <h2>Uma operação registrou R$ 800.000 em apostas e R$ 680.000 em pagamentos de prêmios. Qual foi o GGR?</h2>
+          <label><input required type="radio" name="q2" value="A"> A) R$ 80.000</label>
+          <label><input type="radio" name="q2" value="B"> B) R$ 120.000</label>
+          <label><input type="radio" name="q2" value="C"> C) R$ 680.000</label>
+          <label><input type="radio" name="q2" value="D"> D) R$ 1.480.000</label>
+        </section>
+
+        <section class="quiz-card">
+          <p class="numero">Pergunta 03</p>
+          <h2>Um jogador deposita R$ 2.000, realiza poucas apostas em odds muito baixas e rapidamente solicita o saque do saldo. Qual área deveria analisar esse comportamento com maior atenção?</h2>
+          <label><input required type="radio" name="q3" value="A"> A) Marketing</label>
+          <label><input type="radio" name="q3" value="B"> B) Design</label>
+          <label><input type="radio" name="q3" value="C"> C) Risco / Compliance</label>
+          <label><input type="radio" name="q3" value="D"> D) Afiliados</label>
+        </section>
+
+        <section class="quiz-card">
+          <p class="numero">Pergunta 04</p>
+          <h2>Um mercado possui odds 1.80 e 2.10 para dois resultados mutuamente exclusivos. Aproximadamente qual é a soma das probabilidades implícitas?</h2>
+          <label><input required type="radio" name="q4" value="A"> A) 90%</label>
+          <label><input type="radio" name="q4" value="B"> B) 100%</label>
+          <label><input type="radio" name="q4" value="C"> C) 103,17%</label>
+          <label><input type="radio" name="q4" value="D"> D) 110%</label>
+        </section>
+
+        <section class="quiz-card">
+          <p class="numero">Pergunta 05</p>
+          <h2>Um jogador faz uma aposta de R$ 1.000 com odd 1.80. O retorno potencial apresentado é R$ 1.800. Quanto desse valor corresponde à stake original?</h2>
+          <label><input required type="radio" name="q5" value="A"> A) R$ 800</label>
+          <label><input type="radio" name="q5" value="B"> B) R$ 1.000</label>
+          <label><input type="radio" name="q5" value="C"> C) R$ 1.800</label>
+          <label><input type="radio" name="q5" value="D"> D) R$ 2.800</label>
+        </section>
+
+        <section class="quiz-card">
+          <p class="numero">Pergunta 06</p>
+          <h2>Em um dia, o GGR de uma operação fica negativo. O que isso indica, de forma simplificada?</h2>
+          <label><input required type="radio" name="q6" value="A"> A) Os jogadores receberam mais em prêmios do que o valor considerado na receita bruta de jogos naquele período</label>
+          <label><input type="radio" name="q6" value="B"> B) Não houve depósitos</label>
+          <label><input type="radio" name="q6" value="C"> C) Todos os jogadores ganharam</label>
+          <label><input type="radio" name="q6" value="D"> D) A plataforma ficou sem saldo</label>
+        </section>
+
+        <section class="quiz-card">
+          <p class="numero">Pergunta 07</p>
+          <h2>Uma partida é encerrada antecipadamente. Qual deve ser a primeira atitude antes de definir manualmente a liquidação das apostas afetadas?</h2>
+          <label><input required type="radio" name="q7" value="A"> A) Marcar todas como perdidas</label>
+          <label><input type="radio" name="q7" value="B"> B) Marcar todas como vencedoras</label>
+          <label><input type="radio" name="q7" value="C"> C) Conferir as regras do mercado/provedor e o resultado oficial aplicável</label>
+          <label><input type="radio" name="q7" value="D"> D) Devolver todas sem verificar as regras</label>
+        </section>
+
+        <section class="quiz-card">
+          <p class="numero">Pergunta 08</p>
+          <h2>Uma aposta de R$ 300 em odd 3.50 vence. Qual é o retorno total e o lucro líquido?</h2>
+          <label><input required type="radio" name="q8" value="A"> A) R$ 1.050 / R$ 750</label>
+          <label><input type="radio" name="q8" value="B"> B) R$ 750 / R$ 450</label>
+          <label><input type="radio" name="q8" value="C"> C) R$ 1.050 / R$ 1.050</label>
+          <label><input type="radio" name="q8" value="D"> D) R$ 3.500 / R$ 3.200</label>
+        </section>
+
+        <section class="quiz-card">
+          <p class="numero">Pergunta 09</p>
+          <h2>Qual cenário representa maior exposição financeira para a casa?</h2>
+          <label><input required type="radio" name="q9" value="A"> A) R$ 100.000 distribuídos igualmente entre vários resultados</label>
+          <label><input type="radio" name="q9" value="B"> B) Grande concentração de apostas em um mesmo resultado com potencial de pagamento elevado</label>
+          <label><input type="radio" name="q9" value="C"> C) Muitos jogadores apenas consultando odds</label>
+          <label><input type="radio" name="q9" value="D"> D) Grande quantidade de apostas já liquidadas como perdedoras</label>
+        </section>
+
+        <section class="quiz-card">
+          <p class="numero">Pergunta 10</p>
+          <h2>Uma odd cai de 2.50 para 1.80 em pouco tempo. Qual pode ser uma explicação operacional?</h2>
+          <label><input required type="radio" name="q10" value="A"> A) A probabilidade estimada daquele resultado aumentou e/ou houve forte pressão de apostas naquele lado</label>
+          <label><input type="radio" name="q10" value="B"> B) O GGR necessariamente ficou negativo</label>
+          <label><input type="radio" name="q10" value="C"> C) O evento foi cancelado</label>
+          <label><input type="radio" name="q10" value="D"> D) Todos os jogadores tiveram suas apostas anuladas</label>
+        </section>
+
+        <section class="quiz-card">
+          <p class="numero">Pergunta 11</p>
+          <h2>Qual situação pode indicar possível abuso de bônus?</h2>
+          <label><input required type="radio" name="q11" value="A"> A) Jogador utiliza diferentes mercados normalmente</label>
+          <label><input type="radio" name="q11" value="B"> B) Jogador acessa a plataforma diariamente</label>
+          <label><input type="radio" name="q11" value="C"> C) Contas relacionadas apresentam padrões semelhantes visando repetidamente obter promoções</label>
+          <label><input type="radio" name="q11" value="D"> D) Jogador perde o bônus recebido</label>
+        </section>
+
+        <section class="quiz-card">
+          <p class="numero">Pergunta 12</p>
+          <h2>Uma operação teve R$ 1.500.000 de turnover e GGR de R$ 90.000. Qual foi aproximadamente a margem de GGR sobre o turnover?</h2>
+          <label><input required type="radio" name="q12" value="A"> A) 3%</label>
+          <label><input type="radio" name="q12" value="B"> B) 6%</label>
+          <label><input type="radio" name="q12" value="C"> C) 9%</label>
+          <label><input type="radio" name="q12" value="D"> D) 15%</label>
+        </section>
+
+        <div class="acoes">
+          <button type="submit">Finalizar enquete</button>
+        </div>
+      </form>
+    </section>
+
+    <section id="resultado" class="resultado escondido"></section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
