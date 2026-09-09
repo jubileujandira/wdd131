@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Calendário operacional de jogos para analistas de risco - Champions League e principais ligas europeias." />
+  <title>Calendário Operacional | Futebol Europeu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">GA</div>
+        <div>
+          <strong>Ginga Analytics</strong>
+          <span>Risk Operations</span>
+        </div>
+      </div>
+
+      <nav class="menu" aria-label="Navegação principal">
+        <a class="active" href="#calendario">Calendário</a>
+        <a href="#resumo">Resumo</a>
+        <a href="#prioridades">Prioridades</a>
+      </nav>
+
+      <div class="sidebar-note">
+        <span>Horário padrão</span>
+        <strong>Brasília / Recife</strong>
+        <small>UTC-3</small>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">OPERAÇÃO • SPORTSBOOK</p>
+          <h1>Calendário de Jogos</h1>
+          <p class="subtitle">
+            Champions League e campeonatos nacionais das cinco principais ligas europeias.
+          </p>
+        </div>
+        <div class="status-card">
+          <span class="status-dot"></span>
+          <div>
+            <small>Período monitorado</small>
+            <strong>09 a 20 de setembro de 2026</strong>
+          </div>
+        </div>
+      </header>
+
+      <section id="resumo" class="stats-grid">
+        <article class="stat-card">
+          <span class="stat-label">Jogos listados</span>
+          <strong>39</strong>
+          <small>Principais partidas da janela</small>
+        </article>
+        <article class="stat-card">
+          <span class="stat-label">Competições</span>
+          <strong>6</strong>
+          <small>Champions + Top 5 ligas</small>
+        </article>
+        <article class="stat-card danger">
+          <span class="stat-label">Prioridade máxima</span>
+          <strong>5</strong>
+          <small>Clássicos / maior potencial de exposição</small>
+        </article>
+        <article class="stat-card">
+          <span class="stat-label">Fuso horário</span>
+          <strong>UTC-3</strong>
+          <small>Brasília / Recife</small>
+        </article>
+      </section>
+
+      <section id="calendario" class="panel">
+        <div class="panel-header">
+          <div>
+            <p class="eyebrow">VISÃO OPERACIONAL</p>
+            <h2>Agenda de partidas</h2>
+          </div>
+
+          <div class="filters">
+            <label>
+              <span>Competição</span>
+              <select id="competitionFilter">
+                <option value="all">Todas</option>
+                <option value="Champions League">Champions League</option>
+                <option value="Premier League">Premier League</option>
+                <option value="La Liga">La Liga</option>
+                <option value="Serie A">Serie A</option>
+                <option value="Bundesliga">Bundesliga</option>
+                <option value="Ligue 1">Ligue 1</option>
+              </select>
+            </label>
+
+            <label>
+              <span>Nível</span>
+              <select id="riskFilter">
+                <option value="all">Todos</option>
+                <option value="max">Prioridade máxima</option>
+                <option value="high">Alta</option>
+                <option value="medium">Média</option>
+              </select>
+            </label>
+
+            <label class="search-box">
+              <span>Buscar jogo</span>
+              <input id="searchInput" type="search" placeholder="Ex.: Real Madrid, Arsenal..." />
+            </label>
+          </div>
+        </div>
+
+        <div class="legend">
+          <span><i class="dot max"></i> Prioridade máxima</span>
+          <span><i class="dot high"></i> Alta atenção</span>
+          <span><i class="dot medium"></i> Atenção moderada</span>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Data</th>
+                <th>Competição</th>
+                <th>Partida</th>
+                <th>Horário</th>
+                <th>Risco</th>
+              </tr>
+            </thead>
+            <tbody id="gamesTable">
+              <tr data-comp="Champions League" data-risk="high"><td>09/09</td><td><span class="badge ucl">Champions</span></td><td>Barcelona × Feyenoord</td><td>13:45</td><td><span class="risk high">Alta</span></td></tr>
+              <tr data-comp="Champions League" data-risk="high"><td>09/09</td><td><span class="badge ucl">Champions</span></td><td>Liverpool × Atlético Madrid</td><td>16:00</td><td><span class="risk high">Alta</span></td></tr>
+              <tr data-comp="Champions League" data-risk="medium"><td>09/09</td><td><span class="badge ucl">Champions</span></td><td>PSG × Slovan Bratislava</td><td>16:00</td><td><span class="risk medium">Média</span></td></tr>
+              <tr data-comp="Champions League" data-risk="high"><td>09/09</td><td><span class="badge ucl">Champions</span></td><td>Napoli × Arsenal</td><td>16:00</td><td><span class="risk high">Alta</span></td></tr>
+              <tr data-comp="Champions League" data-risk="medium"><td>10/09</td><td><span class="badge ucl">Champions</span></td><td>Fenerbahçe × Roma</td><td>13:45</td><td><span class="risk medium">Média</span></td></tr>
+              <tr data-comp="Champions League" data-risk="medium"><td>10/09</td><td><span class="badge ucl">Champions</span></td><td>Bayern × Bodø/Glimt</td><td>16:00</td><td><span class="risk medium">Média</span></td></tr>
+              <tr data-comp="Champions League" data-risk="medium"><td>10/09</td><td><span class="badge ucl">Champions</span></td><td>Manchester United × Sabah</td><td>16:00</td><td><span class="risk medium">Média</span></td></tr>
+
+              <tr data-comp="La Liga" data-risk="medium"><td>11/09</td><td><span class="badge laliga">La Liga</span></td><td>Sevilla × Valencia</td><td>16:00</td><td><span class="risk medium">Média</span></td></tr>
+              <tr data-comp="Ligue 1" data-risk="medium"><td>11/09</td><td><span class="badge ligue1">Ligue 1</span></td><td>Rennes × Marseille</td><td>15:45</td><td><span class="risk medium">Média</span></td></tr>
+
+              <tr data-comp="Premier League" data-risk="medium"><td>12/09</td><td><span class="badge epl">Premier</span></td><td>Chelsea × Hull</td><td>11:00</td><td><span class="risk medium">Média</span></td></tr>
+              <tr data-comp="Premier League" data-risk="medium"><td>12/09</td><td><span class="badge epl">Premier</span></td><td>Liverpool × Fulham</td><td>11:00</td><td><span class="risk medium">Média</span></td></tr>
+              <tr data-comp="Premier League" data-risk="medium"><td>12/09</td><td><span class="badge epl">Premier</span></td><td>Tottenham × Everton</td><td>13:30</td><td><span class="risk medium">Média</span></td></tr>
+              <tr data-comp="Premier League" data-risk="high"><td>12/09</td><td><span class="badge epl">Premier</span></td><td>Sunderland × Arsenal</td><td>16:00</td><td><span class="risk high">Alta</span></td></tr>
+              <tr data-comp="La Liga" data-risk="high"><td>12/09</td><td><span class="badge laliga">La Liga</span></td><td>Real Madrid × Rayo Vallecano</td><td>16:00</td><td><span class="risk high">Alta</span></td></tr>
+              <tr data-comp="Serie A" data-risk="high"><td>12/09</td><td><span class="badge seriea">Serie A</span></td><td>Lazio × Milan</td><td>13:00</td><td><span class="risk high">Alta</span></td></tr>
+              <tr data-comp="Bundesliga" data-risk="medium"><td>12/09</td><td><span class="badge bundes">Bundesliga</span></td><td>Dortmund × Paderborn</td><td>10:30</td><td><span class="risk medium">Média</span></td></tr>
+
+              <tr data-comp="Premier League" data-risk="max"><td>13/09</td><td><span class="badge epl">Premier</span></td><td><strong>Manchester United × Manchester City</strong></td><td>12:30</td><td><span class="risk max">Máxima</span></td></tr>
+              <tr data-comp="La Liga" data-risk="high"><td>13/09</td><td><span class="badge laliga">La Liga</span></td><td>Levante × Barcelona</td><td>11:15</td><td><span class="risk high">Alta</span></td></tr>
+              <tr data-comp="La Liga" data-risk="high"><td>13/09</td><td><span class="badge laliga">La Liga</span></td><td>Real Sociedad × Atlético Madrid</td><td>16:00</td><td><span class="risk high">Alta</span></td></tr>
+              <tr data-comp="Serie A" data-risk="medium"><td>13/09</td><td><span class="badge seriea">Serie A</span></td><td>Napoli × Bologna</td><td>13:00</td><td><span class="risk medium">Média</span></td></tr>
+              <tr data-comp="Serie A" data-risk="medium"><td>13/09</td><td><span class="badge seriea">Serie A</span></td><td>Sassuolo × Juventus</td><td>15:45</td><td><span class="risk medium">Média</span></td></tr>
+              <tr data-comp="Bundesliga" data-risk="medium"><td>13/09</td><td><span class="badge bundes">Bundesliga</span></td><td>RB Leipzig × Hamburg</td><td>10:30</td><td><span class="risk medium">Média</span></td></tr>
+              <tr data-comp="Ligue 1" data-risk="high"><td>13/09</td><td><span class="badge ligue1">Ligue 1</span></td><td>Brest × PSG</td><td>15:45</td><td><span class="risk high">Alta</span></td></tr>
+
+              <tr data-comp="Premier League" data-risk="medium"><td>14/09</td><td><span class="badge epl">Premier</span></td><td>Leeds × Newcastle</td><td>16:00</td><td><span class="risk medium">Média</span></td></tr>
+              <tr data-comp="La Liga" data-risk="medium"><td>14/09</td><td><span class="badge laliga">La Liga</span></td><td>Villarreal × Betis</td><td>16:00</td><td><span class="risk medium">Média</span></td></tr>
+              <tr data-comp="Serie A" data-risk="high"><td>14/09</td><td><span class="badge seriea">Serie A</span></td><td>Inter × Udinese</td><td>15:45</td><td><span class="risk high">Alta</span></td></tr>
+
+              <tr data-comp="La Liga" data-risk="high"><td>15/09</td><td><span class="badge laliga">La Liga</span></td><td>Elche × Real Madrid</td><td>16:30</td><td><span class="risk high">Alta</span></td></tr>
+
+              <tr data-comp="La Liga" data-risk="medium"><td>16/09</td><td><span class="badge laliga">La Liga</span></td><td>Atlético Madrid × Osasuna</td><td>14:00</td><td><span class="risk medium">Média</span></td></tr>
+              <tr data-comp="La Liga" data-risk="high"><td>16/09</td><td><span class="badge laliga">La Liga</span></td><td>Barcelona × Racing Santander</td><td>16:30</td><td><span class="risk high">Alta</span></td></tr>
+
+              <tr data-comp="Premier League" data-risk="medium"><td>18/09</td><td><span class="badge epl">Premier</span></td><td>Brentford × Chelsea</td><td>16:00</td><td><span class="risk medium">Média</span></td></tr>
+              <tr data-comp="Bundesliga" data-risk="high"><td>18/09</td><td><span class="badge bundes">Bundesliga</span></td><td>Bayern × Union Berlin</td><td>15:30</td><td><span class="risk high">Alta</span></td></tr>
+              <tr data-comp="Ligue 1" data-risk="medium"><td>18/09</td><td><span class="badge ligue1">Ligue 1</span></td><td>Monaco × Lens</td><td>15:45</td><td><span class="risk medium">Média</span></td></tr>
+
+              <tr data-comp="Premier League" data-risk="high"><td>19/09</td><td><span class="badge epl">Premier</span></td><td>Tottenham × Aston Villa</td><td>08:30</td><td><span class="risk high">Alta</span></td></tr>
+              <tr data-comp="Premier League" data-risk="high"><td>19/09</td><td><span class="badge epl">Premier</span></td><td>Brighton × Arsenal</td><td>11:00</td><td><span class="risk high">Alta</span></td></tr>
+              <tr data-comp="La Liga" data-risk="max"><td>19/09</td><td><span class="badge laliga">La Liga</span></td><td><strong>Sevilla × Barcelona</strong></td><td>16:00</td><td><span class="risk max">Máxima</span></td></tr>
+              <tr data-comp="Serie A" data-risk="max"><td>19/09</td><td><span class="badge seriea">Serie A</span></td><td><strong>Roma × Inter</strong></td><td>13:00</td><td><span class="risk max">Máxima</span></td></tr>
+              <tr data-comp="Bundesliga" data-risk="high"><td>19/09</td><td><span class="badge bundes">Bundesliga</span></td><td>Stuttgart × Dortmund</td><td>13:30</td><td><span class="risk high">Alta</span></td></tr>
+
+              <tr data-comp="Premier League" data-risk="high"><td>20/09</td><td><span class="badge epl">Premier</span></td><td>Bournemouth × Liverpool</td><td>10:00</td><td><span class="risk high">Alta</span></td></tr>
+              <tr data-comp="Premier League" data-risk="high"><td>20/09</td><td><span class="badge epl">Premier</span></td><td>Manchester City × Sunderland</td><td>10:00</td><td><span class="risk high">Alta</span></td></tr>
+              <tr data-comp="Premier League" data-risk="high"><td>20/09</td><td><span class="badge epl">Premier</span></td><td>Fulham × Manchester United</td><td>12:30</td><td><span class="risk high">Alta</span></td></tr>
+              <tr data-comp="La Liga" data-risk="max"><td>20/09</td><td><span class="badge laliga">La Liga</span></td><td><strong>Atlético Madrid × Real Madrid</strong></td><td>11:15</td><td><span class="risk max">Máxima</span></td></tr>
+              <tr data-comp="Serie A" data-risk="medium"><td>20/09</td><td><span class="badge seriea">Serie A</span></td><td>Fiorentina × Napoli</td><td>07:30</td><td><span class="risk medium">Média</span></td></tr>
+              <tr data-comp="Serie A" data-risk="high"><td>20/09</td><td><span class="badge seriea">Serie A</span></td><td>Juventus × Atalanta</td><td>13:00</td><td><span class="risk high">Alta</span></td></tr>
+              <tr data-comp="Bundesliga" data-risk="high"><td>20/09</td><td><span class="badge bundes">Bundesliga</span></td><td>Leverkusen × Leipzig</td><td>10:30</td><td><span class="risk high">Alta</span></td></tr>
+              <tr data-comp="Ligue 1" data-risk="max"><td>20/09</td><td><span class="badge ligue1">Ligue 1</span></td><td><strong>Marseille × PSG</strong></td><td>15:45</td><td><span class="risk max">Máxima</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p id="emptyState" class="empty-state">Nenhuma partida encontrada com os filtros selecionados.</p>
+      </section>
+
+      <section id="prioridades" class="priority-panel">
+        <div>
+          <p class="eyebrow">ATENÇÃO DO RISCO</p>
+          <h2>Jogos de prioridade máxima</h2>
+          <p>Recomendação para acompanhamento reforçado de limites, exposição, apostas de alto valor e movimentos anormais de mercado.</p>
+        </div>
+
+        <div class="priority-list">
+          <span>Manchester United × Manchester City</span>
+          <span>Sevilla × Barcelona</span>
+          <span>Roma × Inter</span>
+          <span>Atlético Madrid × Real Madrid</span>
+          <span>Marseille × PSG</span>
+        </div>
+      </section>
+
+      <footer>
+        <span>Ginga Analytics • Calendário Operacional</span>
+        <span>Atualização: setembro/2026</span>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    const competitionFilter = document.getElementById('competitionFilter');
+    const riskFilter = document.getElementById('riskFilter');
+    const searchInput = document.getElementById('searchInput');
+    const rows = [...document.querySelectorAll('#gamesTable tr')];
+    const emptyState = document.getElementById('emptyState');
+
+    function filterRows() {
+      const competition = competitionFilter.value;
+      const risk = riskFilter.value;
+      const search = searchInput.value.trim().toLowerCase();
+      let visible = 0;
+
+      rows.forEach(row => {
+        const rowComp = row.dataset.comp;
+        const rowRisk = row.dataset.risk;
+        const text = row.innerText.toLowerCase();
+
+        const showCompetition = competition === 'all' || rowComp === competition;
+        const showRisk = risk === 'all' || rowRisk === risk;
+        const showSearch = !search || text.includes(search);
+
+        const show = showCompetition && showRisk && showSearch;
+        row.style.display = show ? '' : 'none';
+        if (show) visible++;
+      });
+
+      emptyState.style.display = visible === 0 ? 'block' : 'none';
+    }
+
+    competitionFilter.addEventListener('change', filterRows);
+    riskFilter.addEventListener('change', filterRows);
+    searchInput.addEventListener('input', filterRows);
+  </script>
+</body>
+</html>
