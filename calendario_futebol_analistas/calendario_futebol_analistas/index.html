@@ -1,253 +1,2344 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Calendário operacional de jogos para analistas de risco - Champions League e principais ligas europeias." />
-  <title>Calendário Operacional | Futebol Europeu</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
-</head>
-<body>
-  <div class="page-shell">
-    <aside class="sidebar">
-      <div class="brand">
-        <div class="brand-mark">GA</div>
-        <div>
-          <strong>Ginga Analytics</strong>
-          <span>Risk Operations</span>
-        </div>
-      </div>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-      <nav class="menu" aria-label="Navegação principal">
-        <a class="active" href="#calendario">Calendário</a>
-        <a href="#resumo">Resumo</a>
-        <a href="#prioridades">Prioridades</a>
-      </nav>
+<title>Ginga Analytics | Calendário Operacional</title>
 
-      <div class="sidebar-note">
-        <span>Horário padrão</span>
-        <strong>Brasília / Recife</strong>
-        <small>UTC-3</small>
-      </div>
-    </aside>
+<style>
 
-    <main class="main-content">
-      <header class="hero">
-        <div>
-          <p class="eyebrow">OPERAÇÃO • SPORTSBOOK</p>
-          <h1>Calendário de Jogos</h1>
-          <p class="subtitle">
-            Champions League e campeonatos nacionais das cinco principais ligas europeias.
-          </p>
-        </div>
-        <div class="status-card">
-          <span class="status-dot"></span>
-          <div>
-            <small>Período monitorado</small>
-            <strong>09 a 20 de setembro de 2026</strong>
-          </div>
-        </div>
-      </header>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-      <section id="resumo" class="stats-grid">
-        <article class="stat-card">
-          <span class="stat-label">Jogos listados</span>
-          <strong>39</strong>
-          <small>Principais partidas da janela</small>
-        </article>
-        <article class="stat-card">
-          <span class="stat-label">Competições</span>
-          <strong>6</strong>
-          <small>Champions + Top 5 ligas</small>
-        </article>
-        <article class="stat-card danger">
-          <span class="stat-label">Prioridade máxima</span>
-          <strong>5</strong>
-          <small>Clássicos / maior potencial de exposição</small>
-        </article>
-        <article class="stat-card">
-          <span class="stat-label">Fuso horário</span>
-          <strong>UTC-3</strong>
-          <small>Brasília / Recife</small>
-        </article>
-      </section>
+:root{
+    --bg:#07101d;
+    --bg2:#0b1627;
+    --panel:#101d30;
+    --panel2:#14233a;
+    --border:#213650;
 
-      <section id="calendario" class="panel">
-        <div class="panel-header">
-          <div>
-            <p class="eyebrow">VISÃO OPERACIONAL</p>
-            <h2>Agenda de partidas</h2>
-          </div>
+    --text:#edf4ff;
+    --muted:#8fa4bd;
 
-          <div class="filters">
-            <label>
-              <span>Competição</span>
-              <select id="competitionFilter">
-                <option value="all">Todas</option>
-                <option value="Champions League">Champions League</option>
-                <option value="Premier League">Premier League</option>
-                <option value="La Liga">La Liga</option>
-                <option value="Serie A">Serie A</option>
-                <option value="Bundesliga">Bundesliga</option>
-                <option value="Ligue 1">Ligue 1</option>
-              </select>
-            </label>
+    --green:#35e0a1;
+    --blue:#5ba5ff;
+    --red:#ff667a;
+    --yellow:#ffc15a;
+    --purple:#a987ff;
 
-            <label>
-              <span>Nível</span>
-              <select id="riskFilter">
-                <option value="all">Todos</option>
-                <option value="max">Prioridade máxima</option>
-                <option value="high">Alta</option>
-                <option value="medium">Média</option>
-              </select>
-            </label>
+    --shadow:0 25px 70px rgba(0,0,0,.28);
+}
 
-            <label class="search-box">
-              <span>Buscar jogo</span>
-              <input id="searchInput" type="search" placeholder="Ex.: Real Madrid, Arsenal..." />
-            </label>
-          </div>
-        </div>
+html{
+    scroll-behavior:smooth;
+}
 
-        <div class="legend">
-          <span><i class="dot max"></i> Prioridade máxima</span>
-          <span><i class="dot high"></i> Alta atenção</span>
-          <span><i class="dot medium"></i> Atenção moderada</span>
-        </div>
+body{
+    font-family:Arial, Helvetica, sans-serif;
 
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Data</th>
-                <th>Competição</th>
-                <th>Partida</th>
-                <th>Horário</th>
-                <th>Risco</th>
-              </tr>
-            </thead>
-            <tbody id="gamesTable">
-              <tr data-comp="Champions League" data-risk="high"><td>09/09</td><td><span class="badge ucl">Champions</span></td><td>Barcelona × Feyenoord</td><td>13:45</td><td><span class="risk high">Alta</span></td></tr>
-              <tr data-comp="Champions League" data-risk="high"><td>09/09</td><td><span class="badge ucl">Champions</span></td><td>Liverpool × Atlético Madrid</td><td>16:00</td><td><span class="risk high">Alta</span></td></tr>
-              <tr data-comp="Champions League" data-risk="medium"><td>09/09</td><td><span class="badge ucl">Champions</span></td><td>PSG × Slovan Bratislava</td><td>16:00</td><td><span class="risk medium">Média</span></td></tr>
-              <tr data-comp="Champions League" data-risk="high"><td>09/09</td><td><span class="badge ucl">Champions</span></td><td>Napoli × Arsenal</td><td>16:00</td><td><span class="risk high">Alta</span></td></tr>
-              <tr data-comp="Champions League" data-risk="medium"><td>10/09</td><td><span class="badge ucl">Champions</span></td><td>Fenerbahçe × Roma</td><td>13:45</td><td><span class="risk medium">Média</span></td></tr>
-              <tr data-comp="Champions League" data-risk="medium"><td>10/09</td><td><span class="badge ucl">Champions</span></td><td>Bayern × Bodø/Glimt</td><td>16:00</td><td><span class="risk medium">Média</span></td></tr>
-              <tr data-comp="Champions League" data-risk="medium"><td>10/09</td><td><span class="badge ucl">Champions</span></td><td>Manchester United × Sabah</td><td>16:00</td><td><span class="risk medium">Média</span></td></tr>
+    background:
+    radial-gradient(circle at top left,
+    rgba(91,165,255,.12),
+    transparent 35%),
 
-              <tr data-comp="La Liga" data-risk="medium"><td>11/09</td><td><span class="badge laliga">La Liga</span></td><td>Sevilla × Valencia</td><td>16:00</td><td><span class="risk medium">Média</span></td></tr>
-              <tr data-comp="Ligue 1" data-risk="medium"><td>11/09</td><td><span class="badge ligue1">Ligue 1</span></td><td>Rennes × Marseille</td><td>15:45</td><td><span class="risk medium">Média</span></td></tr>
+    radial-gradient(circle at top right,
+    rgba(53,224,161,.08),
+    transparent 30%),
 
-              <tr data-comp="Premier League" data-risk="medium"><td>12/09</td><td><span class="badge epl">Premier</span></td><td>Chelsea × Hull</td><td>11:00</td><td><span class="risk medium">Média</span></td></tr>
-              <tr data-comp="Premier League" data-risk="medium"><td>12/09</td><td><span class="badge epl">Premier</span></td><td>Liverpool × Fulham</td><td>11:00</td><td><span class="risk medium">Média</span></td></tr>
-              <tr data-comp="Premier League" data-risk="medium"><td>12/09</td><td><span class="badge epl">Premier</span></td><td>Tottenham × Everton</td><td>13:30</td><td><span class="risk medium">Média</span></td></tr>
-              <tr data-comp="Premier League" data-risk="high"><td>12/09</td><td><span class="badge epl">Premier</span></td><td>Sunderland × Arsenal</td><td>16:00</td><td><span class="risk high">Alta</span></td></tr>
-              <tr data-comp="La Liga" data-risk="high"><td>12/09</td><td><span class="badge laliga">La Liga</span></td><td>Real Madrid × Rayo Vallecano</td><td>16:00</td><td><span class="risk high">Alta</span></td></tr>
-              <tr data-comp="Serie A" data-risk="high"><td>12/09</td><td><span class="badge seriea">Serie A</span></td><td>Lazio × Milan</td><td>13:00</td><td><span class="risk high">Alta</span></td></tr>
-              <tr data-comp="Bundesliga" data-risk="medium"><td>12/09</td><td><span class="badge bundes">Bundesliga</span></td><td>Dortmund × Paderborn</td><td>10:30</td><td><span class="risk medium">Média</span></td></tr>
+    var(--bg);
 
-              <tr data-comp="Premier League" data-risk="max"><td>13/09</td><td><span class="badge epl">Premier</span></td><td><strong>Manchester United × Manchester City</strong></td><td>12:30</td><td><span class="risk max">Máxima</span></td></tr>
-              <tr data-comp="La Liga" data-risk="high"><td>13/09</td><td><span class="badge laliga">La Liga</span></td><td>Levante × Barcelona</td><td>11:15</td><td><span class="risk high">Alta</span></td></tr>
-              <tr data-comp="La Liga" data-risk="high"><td>13/09</td><td><span class="badge laliga">La Liga</span></td><td>Real Sociedad × Atlético Madrid</td><td>16:00</td><td><span class="risk high">Alta</span></td></tr>
-              <tr data-comp="Serie A" data-risk="medium"><td>13/09</td><td><span class="badge seriea">Serie A</span></td><td>Napoli × Bologna</td><td>13:00</td><td><span class="risk medium">Média</span></td></tr>
-              <tr data-comp="Serie A" data-risk="medium"><td>13/09</td><td><span class="badge seriea">Serie A</span></td><td>Sassuolo × Juventus</td><td>15:45</td><td><span class="risk medium">Média</span></td></tr>
-              <tr data-comp="Bundesliga" data-risk="medium"><td>13/09</td><td><span class="badge bundes">Bundesliga</span></td><td>RB Leipzig × Hamburg</td><td>10:30</td><td><span class="risk medium">Média</span></td></tr>
-              <tr data-comp="Ligue 1" data-risk="high"><td>13/09</td><td><span class="badge ligue1">Ligue 1</span></td><td>Brest × PSG</td><td>15:45</td><td><span class="risk high">Alta</span></td></tr>
+    color:var(--text);
+    min-height:100vh;
+}
 
-              <tr data-comp="Premier League" data-risk="medium"><td>14/09</td><td><span class="badge epl">Premier</span></td><td>Leeds × Newcastle</td><td>16:00</td><td><span class="risk medium">Média</span></td></tr>
-              <tr data-comp="La Liga" data-risk="medium"><td>14/09</td><td><span class="badge laliga">La Liga</span></td><td>Villarreal × Betis</td><td>16:00</td><td><span class="risk medium">Média</span></td></tr>
-              <tr data-comp="Serie A" data-risk="high"><td>14/09</td><td><span class="badge seriea">Serie A</span></td><td>Inter × Udinese</td><td>15:45</td><td><span class="risk high">Alta</span></td></tr>
+/* =============================
+HEADER
+============================= */
 
-              <tr data-comp="La Liga" data-risk="high"><td>15/09</td><td><span class="badge laliga">La Liga</span></td><td>Elche × Real Madrid</td><td>16:30</td><td><span class="risk high">Alta</span></td></tr>
+header{
+    position:sticky;
+    top:0;
+    z-index:1000;
 
-              <tr data-comp="La Liga" data-risk="medium"><td>16/09</td><td><span class="badge laliga">La Liga</span></td><td>Atlético Madrid × Osasuna</td><td>14:00</td><td><span class="risk medium">Média</span></td></tr>
-              <tr data-comp="La Liga" data-risk="high"><td>16/09</td><td><span class="badge laliga">La Liga</span></td><td>Barcelona × Racing Santander</td><td>16:30</td><td><span class="risk high">Alta</span></td></tr>
+    backdrop-filter:blur(18px);
 
-              <tr data-comp="Premier League" data-risk="medium"><td>18/09</td><td><span class="badge epl">Premier</span></td><td>Brentford × Chelsea</td><td>16:00</td><td><span class="risk medium">Média</span></td></tr>
-              <tr data-comp="Bundesliga" data-risk="high"><td>18/09</td><td><span class="badge bundes">Bundesliga</span></td><td>Bayern × Union Berlin</td><td>15:30</td><td><span class="risk high">Alta</span></td></tr>
-              <tr data-comp="Ligue 1" data-risk="medium"><td>18/09</td><td><span class="badge ligue1">Ligue 1</span></td><td>Monaco × Lens</td><td>15:45</td><td><span class="risk medium">Média</span></td></tr>
+    background:rgba(7,16,29,.90);
 
-              <tr data-comp="Premier League" data-risk="high"><td>19/09</td><td><span class="badge epl">Premier</span></td><td>Tottenham × Aston Villa</td><td>08:30</td><td><span class="risk high">Alta</span></td></tr>
-              <tr data-comp="Premier League" data-risk="high"><td>19/09</td><td><span class="badge epl">Premier</span></td><td>Brighton × Arsenal</td><td>11:00</td><td><span class="risk high">Alta</span></td></tr>
-              <tr data-comp="La Liga" data-risk="max"><td>19/09</td><td><span class="badge laliga">La Liga</span></td><td><strong>Sevilla × Barcelona</strong></td><td>16:00</td><td><span class="risk max">Máxima</span></td></tr>
-              <tr data-comp="Serie A" data-risk="max"><td>19/09</td><td><span class="badge seriea">Serie A</span></td><td><strong>Roma × Inter</strong></td><td>13:00</td><td><span class="risk max">Máxima</span></td></tr>
-              <tr data-comp="Bundesliga" data-risk="high"><td>19/09</td><td><span class="badge bundes">Bundesliga</span></td><td>Stuttgart × Dortmund</td><td>13:30</td><td><span class="risk high">Alta</span></td></tr>
+    border-bottom:1px solid var(--border);
+}
 
-              <tr data-comp="Premier League" data-risk="high"><td>20/09</td><td><span class="badge epl">Premier</span></td><td>Bournemouth × Liverpool</td><td>10:00</td><td><span class="risk high">Alta</span></td></tr>
-              <tr data-comp="Premier League" data-risk="high"><td>20/09</td><td><span class="badge epl">Premier</span></td><td>Manchester City × Sunderland</td><td>10:00</td><td><span class="risk high">Alta</span></td></tr>
-              <tr data-comp="Premier League" data-risk="high"><td>20/09</td><td><span class="badge epl">Premier</span></td><td>Fulham × Manchester United</td><td>12:30</td><td><span class="risk high">Alta</span></td></tr>
-              <tr data-comp="La Liga" data-risk="max"><td>20/09</td><td><span class="badge laliga">La Liga</span></td><td><strong>Atlético Madrid × Real Madrid</strong></td><td>11:15</td><td><span class="risk max">Máxima</span></td></tr>
-              <tr data-comp="Serie A" data-risk="medium"><td>20/09</td><td><span class="badge seriea">Serie A</span></td><td>Fiorentina × Napoli</td><td>07:30</td><td><span class="risk medium">Média</span></td></tr>
-              <tr data-comp="Serie A" data-risk="high"><td>20/09</td><td><span class="badge seriea">Serie A</span></td><td>Juventus × Atalanta</td><td>13:00</td><td><span class="risk high">Alta</span></td></tr>
-              <tr data-comp="Bundesliga" data-risk="high"><td>20/09</td><td><span class="badge bundes">Bundesliga</span></td><td>Leverkusen × Leipzig</td><td>10:30</td><td><span class="risk high">Alta</span></td></tr>
-              <tr data-comp="Ligue 1" data-risk="max"><td>20/09</td><td><span class="badge ligue1">Ligue 1</span></td><td><strong>Marseille × PSG</strong></td><td>15:45</td><td><span class="risk max">Máxima</span></td></tr>
-            </tbody>
-          </table>
-        </div>
+.header-content{
+    max-width:1500px;
+    margin:auto;
 
-        <p id="emptyState" class="empty-state">Nenhuma partida encontrada com os filtros selecionados.</p>
-      </section>
+    padding:18px 5%;
 
-      <section id="prioridades" class="priority-panel">
-        <div>
-          <p class="eyebrow">ATENÇÃO DO RISCO</p>
-          <h2>Jogos de prioridade máxima</h2>
-          <p>Recomendação para acompanhamento reforçado de limites, exposição, apostas de alto valor e movimentos anormais de mercado.</p>
-        </div>
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
 
-        <div class="priority-list">
-          <span>Manchester United × Manchester City</span>
-          <span>Sevilla × Barcelona</span>
-          <span>Roma × Inter</span>
-          <span>Atlético Madrid × Real Madrid</span>
-          <span>Marseille × PSG</span>
-        </div>
-      </section>
+    gap:25px;
+}
 
-      <footer>
-        <span>Ginga Analytics • Calendário Operacional</span>
-        <span>Atualização: setembro/2026</span>
-      </footer>
-    </main>
-  </div>
+.brand{
+    display:flex;
+    align-items:center;
+    gap:13px;
+}
 
-  <script>
-    const competitionFilter = document.getElementById('competitionFilter');
-    const riskFilter = document.getElementById('riskFilter');
-    const searchInput = document.getElementById('searchInput');
-    const rows = [...document.querySelectorAll('#gamesTable tr')];
-    const emptyState = document.getElementById('emptyState');
+.logo{
+    width:48px;
+    height:48px;
 
-    function filterRows() {
-      const competition = competitionFilter.value;
-      const risk = riskFilter.value;
-      const search = searchInput.value.trim().toLowerCase();
-      let visible = 0;
+    border-radius:14px;
 
-      rows.forEach(row => {
-        const rowComp = row.dataset.comp;
-        const rowRisk = row.dataset.risk;
-        const text = row.innerText.toLowerCase();
+    display:flex;
+    align-items:center;
+    justify-content:center;
 
-        const showCompetition = competition === 'all' || rowComp === competition;
-        const showRisk = risk === 'all' || rowRisk === risk;
-        const showSearch = !search || text.includes(search);
+    background:
+    linear-gradient(
+    135deg,
+    var(--green),
+    var(--blue)
+    );
 
-        const show = showCompetition && showRisk && showSearch;
-        row.style.display = show ? '' : 'none';
-        if (show) visible++;
-      });
+    color:#04121b;
 
-      emptyState.style.display = visible === 0 ? 'block' : 'none';
+    font-size:18px;
+    font-weight:900;
+}
+
+.brand h2{
+    font-size:18px;
+}
+
+.brand p{
+    color:var(--muted);
+    font-size:11px;
+    margin-top:3px;
+}
+
+/* =============================
+NAVEGAÇÃO
+============================= */
+
+nav{
+    display:flex;
+    align-items:center;
+    gap:5px;
+
+    background:#091524;
+
+    padding:5px;
+
+    border:1px solid var(--border);
+
+    border-radius:12px;
+}
+
+.nav-btn{
+    border:0;
+    cursor:pointer;
+
+    color:var(--muted);
+
+    background:transparent;
+
+    padding:10px 15px;
+
+    border-radius:9px;
+
+    font-weight:bold;
+
+    transition:.2s;
+}
+
+.nav-btn:hover{
+    color:white;
+}
+
+.nav-btn.active{
+    color:#07101d;
+    background:var(--green);
+}
+
+/* =============================
+MAIN
+============================= */
+
+main{
+    max-width:1500px;
+    margin:auto;
+
+    padding:35px 5% 50px;
+}
+
+.tab{
+    display:none;
+}
+
+.tab.active{
+    display:block;
+    animation:fade .25s ease;
+}
+
+@keyframes fade{
+    from{
+        opacity:0;
+        transform:translateY(5px);
     }
 
-    competitionFilter.addEventListener('change', filterRows);
-    riskFilter.addEventListener('change', filterRows);
-    searchInput.addEventListener('input', filterRows);
-  </script>
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* =============================
+HERO
+============================= */
+
+.hero{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+
+    gap:25px;
+
+    margin-bottom:28px;
+}
+
+.tag{
+    color:var(--green);
+
+    font-size:11px;
+    font-weight:bold;
+
+    letter-spacing:2px;
+
+    margin-bottom:9px;
+}
+
+.hero h1{
+    font-size:46px;
+
+    letter-spacing:-2px;
+
+    margin-bottom:10px;
+}
+
+.hero-desc{
+    color:var(--muted);
+
+    max-width:750px;
+
+    line-height:1.6;
+}
+
+.update{
+    background:var(--panel);
+
+    border:1px solid var(--border);
+
+    padding:16px 20px;
+
+    border-radius:15px;
+
+    min-width:250px;
+}
+
+.update small{
+    color:var(--muted);
+    display:block;
+    margin-bottom:5px;
+}
+
+/* =============================
+CARDS
+============================= */
+
+.cards{
+    display:grid;
+
+    grid-template-columns:
+    repeat(4,1fr);
+
+    gap:15px;
+
+    margin-bottom:25px;
+}
+
+.card{
+    background:
+    linear-gradient(
+    180deg,
+    var(--panel2),
+    var(--panel)
+    );
+
+    border:1px solid var(--border);
+
+    padding:20px;
+
+    border-radius:17px;
+
+    box-shadow:var(--shadow);
+}
+
+.card span{
+    color:var(--muted);
+    font-size:12px;
+}
+
+.card strong{
+    display:block;
+
+    font-size:31px;
+
+    margin:10px 0 5px;
+}
+
+.card small{
+    color:var(--muted);
+}
+
+/* =============================
+PAINEL
+============================= */
+
+.panel{
+    background:
+    rgba(16,29,48,.94);
+
+    border:1px solid var(--border);
+
+    border-radius:20px;
+
+    padding:23px;
+
+    box-shadow:var(--shadow);
+}
+
+.panel-top{
+    display:flex;
+
+    align-items:flex-end;
+    justify-content:space-between;
+
+    gap:20px;
+
+    margin-bottom:20px;
+}
+
+.panel h2{
+    margin-top:5px;
+}
+
+/* =============================
+FILTROS
+============================= */
+
+.filters{
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:10px;
+}
+
+.filter label{
+    display:block;
+
+    font-size:10px;
+
+    color:var(--muted);
+
+    margin-bottom:5px;
+}
+
+select,
+input,
+textarea{
+
+    background:#071523;
+
+    border:1px solid var(--border);
+
+    color:white;
+
+    border-radius:9px;
+
+    padding:11px 12px;
+
+    outline:none;
+}
+
+select:focus,
+input:focus,
+textarea:focus{
+    border-color:var(--green);
+}
+
+#busca{
+    min-width:230px;
+}
+
+/* =============================
+LIGAS
+============================= */
+
+.liga{
+    display:inline-flex;
+
+    padding:6px 10px;
+
+    border-radius:20px;
+
+    font-size:10px;
+    font-weight:bold;
+}
+
+.ucl{
+    background:rgba(169,135,255,.14);
+    color:#cbbbff;
+}
+
+.epl{
+    background:rgba(91,165,255,.14);
+    color:#9bc8ff;
+}
+
+.laliga{
+    background:rgba(255,193,90,.14);
+    color:#ffd696;
+}
+
+.seriea{
+    background:rgba(53,224,161,.14);
+    color:#8af0ca;
+}
+
+.bundesliga{
+    background:rgba(255,102,122,.14);
+    color:#ffa1ae;
+}
+
+.ligue1{
+    background:rgba(62,209,255,.14);
+    color:#94e6ff;
+}
+
+/* =============================
+RISCO
+============================= */
+
+.risk{
+    display:inline-flex;
+
+    justify-content:center;
+
+    min-width:72px;
+
+    padding:6px 9px;
+
+    border-radius:20px;
+
+    font-size:10px;
+    font-weight:bold;
+}
+
+.risk.maximo{
+    background:rgba(255,102,122,.15);
+    color:#ff9eaa;
+}
+
+.risk.alto{
+    background:rgba(255,193,90,.15);
+    color:#ffd38a;
+}
+
+.risk.medio{
+    background:rgba(91,165,255,.15);
+    color:#9bc8ff;
+}
+
+/* =============================
+TABELA
+============================= */
+
+.table-wrapper{
+    border:1px solid var(--border);
+
+    border-radius:14px;
+
+    overflow:auto;
+
+    max-height:700px;
+}
+
+table{
+    border-collapse:collapse;
+
+    width:100%;
+
+    min-width:960px;
+}
+
+thead{
+    position:sticky;
+    top:0;
+
+    background:#071523;
+
+    z-index:10;
+}
+
+th{
+    text-align:left;
+
+    padding:14px;
+
+    color:#a9bdd4;
+
+    font-size:10px;
+
+    text-transform:uppercase;
+
+    letter-spacing:1px;
+}
+
+td{
+    border-top:1px solid var(--border);
+
+    padding:14px;
+
+    font-size:13px;
+}
+
+tbody tr{
+    transition:.15s;
+}
+
+tbody tr:hover{
+    background:
+    rgba(255,255,255,.035);
+}
+
+.game{
+    font-weight:bold;
+}
+
+.btn-suggest{
+    border:1px solid var(--border);
+
+    background:#0c1b2c;
+
+    color:#b9c9dc;
+
+    cursor:pointer;
+
+    padding:7px 10px;
+
+    border-radius:8px;
+
+    transition:.2s;
+}
+
+.btn-suggest:hover{
+    color:#06131c;
+
+    background:var(--green);
+
+    border-color:var(--green);
+}
+
+/* =============================
+PRIORIDADE
+============================= */
+
+.priority-grid{
+    display:grid;
+
+    grid-template-columns:
+    repeat(3,1fr);
+
+    gap:15px;
+}
+
+.priority-card{
+
+    background:
+    linear-gradient(
+    145deg,
+    rgba(255,102,122,.09),
+    var(--panel)
+    );
+
+    border:
+    1px solid rgba(255,102,122,.25);
+
+    padding:20px;
+
+    border-radius:15px;
+}
+
+.priority-card h3{
+    margin:10px 0;
+}
+
+.priority-card p{
+    color:var(--muted);
+
+    font-size:13px;
+
+    line-height:1.5;
+}
+
+/* =============================
+COMPETIÇÕES
+============================= */
+
+.league-grid{
+    display:grid;
+
+    grid-template-columns:
+    repeat(3,1fr);
+
+    gap:18px;
+}
+
+.league-card{
+
+    border:1px solid var(--border);
+
+    background:var(--panel);
+
+    border-radius:18px;
+
+    padding:25px;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+.league-card:hover{
+
+    transform:translateY(-4px);
+
+    border-color:
+    rgba(53,224,161,.5);
+}
+
+.league-card h3{
+    margin-bottom:8px;
+}
+
+.league-card strong{
+    display:block;
+
+    font-size:35px;
+
+    margin:15px 0;
+}
+
+.league-card p{
+    color:var(--muted);
+}
+
+/* =============================
+FORM
+============================= */
+
+.form-panel{
+    max-width:700px;
+    margin:auto;
+}
+
+.form-group{
+    margin-bottom:16px;
+}
+
+.form-group label{
+    display:block;
+
+    color:#b7c8da;
+
+    margin-bottom:7px;
+
+    font-size:12px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+    width:100%;
+}
+
+textarea{
+    resize:vertical;
+
+    min-height:140px;
+}
+
+.submit-btn{
+
+    width:100%;
+
+    border:0;
+
+    background:
+    linear-gradient(
+    135deg,
+    var(--green),
+    #4eb8ff
+    );
+
+    color:#06141d;
+
+    cursor:pointer;
+
+    padding:14px;
+
+    border-radius:10px;
+
+    font-weight:900;
+
+    font-size:14px;
+}
+
+/* =============================
+MODAL
+============================= */
+
+.modal{
+
+    display:none;
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:3000;
+
+    align-items:center;
+    justify-content:center;
+
+    padding:20px;
+
+    background:
+    rgba(0,0,0,.75);
+
+    backdrop-filter:blur(6px);
+}
+
+.modal.active{
+    display:flex;
+}
+
+.modal-box{
+
+    width:100%;
+
+    max-width:570px;
+
+    background:#101d30;
+
+    border:1px solid var(--border);
+
+    border-radius:18px;
+
+    padding:25px;
+
+    box-shadow:var(--shadow);
+}
+
+.modal-top{
+
+    display:flex;
+
+    align-items:center;
+    justify-content:space-between;
+
+    margin-bottom:20px;
+}
+
+.close{
+
+    border:0;
+
+    color:white;
+
+    background:transparent;
+
+    font-size:25px;
+
+    cursor:pointer;
+}
+
+/* =============================
+FOOTER
+============================= */
+
+footer{
+
+    margin-top:30px;
+
+    padding-top:20px;
+
+    border-top:1px solid var(--border);
+
+    color:var(--muted);
+
+    font-size:11px;
+
+    display:flex;
+
+    justify-content:space-between;
+}
+
+/* =============================
+RESPONSIVO
+============================= */
+
+@media(max-width:1000px){
+
+    .header-content{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    nav{
+        width:100%;
+        overflow:auto;
+    }
+
+    .cards{
+        grid-template-columns:
+        repeat(2,1fr);
+    }
+
+    .panel-top{
+        flex-direction:column;
+        align-items:stretch;
+    }
+
+    .priority-grid,
+    .league-grid{
+        grid-template-columns:
+        repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:650px){
+
+    main{
+        padding:25px 4%;
+    }
+
+    .hero{
+        flex-direction:column;
+    }
+
+    .hero h1{
+        font-size:34px;
+    }
+
+    .update{
+        width:100%;
+    }
+
+    .cards,
+    .priority-grid,
+    .league-grid{
+        grid-template-columns:1fr;
+    }
+
+    .filters{
+        flex-direction:column;
+    }
+
+    .filter,
+    select,
+    #busca{
+        width:100%;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="header-content">
+
+    <div class="brand">
+
+        <div class="logo">
+            GA
+        </div>
+
+        <div>
+
+            <h2>
+                Ginga Analytics
+            </h2>
+
+            <p>
+                SPORTSBOOK • RISK OPERATIONS
+            </p>
+
+        </div>
+
+    </div>
+
+    <nav>
+
+        <button
+        class="nav-btn active"
+        data-tab="agenda">
+
+            Agenda
+
+        </button>
+
+        <button
+        class="nav-btn"
+        data-tab="prioridades">
+
+            Prioridades
+
+        </button>
+
+        <button
+        class="nav-btn"
+        data-tab="ligas">
+
+            Competições
+
+        </button>
+
+        <button
+        class="nav-btn"
+        data-tab="sugestoes">
+
+            Sugestões
+
+        </button>
+
+    </nav>
+
+</div>
+
+</header>
+
+<main>
+
+<!-- ===================================
+AGENDA
+=================================== -->
+
+<section
+id="agenda"
+class="tab active">
+
+<div class="hero">
+
+    <div>
+
+        <p class="tag">
+            OPERAÇÃO • SPORTSBOOK
+        </p>
+
+        <h1>
+            Calendário Europeu
+        </h1>
+
+        <p class="hero-desc">
+
+            Painel operacional para acompanhamento
+            dos principais eventos de futebol europeu,
+            exposição, high stakes e movimentações
+            relevantes no sportsbook.
+
+        </p>
+
+    </div>
+
+    <div class="update">
+
+        <small>
+            Agenda atual
+        </small>
+
+        <strong>
+            Setembro / Outubro 2026
+        </strong>
+
+    </div>
+
+</div>
+
+
+<div class="cards">
+
+    <div class="card">
+
+        <span>
+            Jogos cadastrados
+        </span>
+
+        <strong id="totalJogos">
+            0
+        </strong>
+
+        <small>
+            Eventos monitorados
+        </small>
+
+    </div>
+
+    <div class="card">
+
+        <span>
+            Competições
+        </span>
+
+        <strong>
+            6
+        </strong>
+
+        <small>
+            Champions + Top 5
+        </small>
+
+    </div>
+
+    <div class="card">
+
+        <span>
+            Alta prioridade
+        </span>
+
+        <strong id="totalPrioridade">
+            0
+        </strong>
+
+        <small>
+            Alta ou máxima
+        </small>
+
+    </div>
+
+    <div class="card">
+
+        <span>
+            Horário
+        </span>
+
+        <strong>
+            UTC-3
+        </strong>
+
+        <small>
+            Brasília / Recife
+        </small>
+
+    </div>
+
+</div>
+
+
+<div class="panel">
+
+<div class="panel-top">
+
+<div>
+
+    <p class="tag">
+        VISÃO OPERACIONAL
+    </p>
+
+    <h2>
+        Próximos jogos
+    </h2>
+
+</div>
+
+
+<div class="filters">
+
+<div class="filter">
+
+<label>
+Competição
+</label>
+
+<select id="filtroLiga">
+
+<option value="todos">
+Todas
+</option>
+
+<option value="Champions League">
+Champions League
+</option>
+
+<option value="Premier League">
+Premier League
+</option>
+
+<option value="La Liga">
+La Liga
+</option>
+
+<option value="Serie A">
+Serie A
+</option>
+
+<option value="Bundesliga">
+Bundesliga
+</option>
+
+<option value="Ligue 1">
+Ligue 1
+</option>
+
+</select>
+
+</div>
+
+
+<div class="filter">
+
+<label>
+Risco
+</label>
+
+<select id="filtroRisco">
+
+<option value="todos">
+Todos
+</option>
+
+<option value="maximo">
+Máxima
+</option>
+
+<option value="alto">
+Alta
+</option>
+
+<option value="medio">
+Média
+</option>
+
+</select>
+
+</div>
+
+
+<div class="filter">
+
+<label>
+Buscar
+</label>
+
+<input
+id="busca"
+type="search"
+placeholder="Time, liga ou data...">
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="table-wrapper">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Data</th>
+<th>Liga</th>
+<th>Evento</th>
+<th>Horário</th>
+<th>Atenção</th>
+<th>Sugestão</th>
+
+</tr>
+
+</thead>
+
+<tbody id="gamesBody">
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ===================================
+PRIORIDADES
+=================================== -->
+
+<section
+id="prioridades"
+class="tab">
+
+<div class="hero">
+
+<div>
+
+<p class="tag">
+RISK MANAGEMENT
+</p>
+
+<h1>
+Prioridades
+</h1>
+
+<p class="hero-desc">
+
+Jogos classificados automaticamente
+para acompanhamento reforçado da operação.
+
+</p>
+
+</div>
+
+</div>
+
+
+<div
+class="priority-grid"
+id="priorityGrid">
+
+</div>
+
+</section>
+
+
+<!-- ===================================
+LIGAS
+=================================== -->
+
+<section
+id="ligas"
+class="tab">
+
+<div class="hero">
+
+<div>
+
+<p class="tag">
+COMPETIÇÕES
+</p>
+
+<h1>
+Campeonatos
+</h1>
+
+<p class="hero-desc">
+
+Clique em uma competição para visualizar
+somente os seus eventos.
+
+</p>
+
+</div>
+
+</div>
+
+
+<div
+class="league-grid"
+id="leagueGrid">
+
+</div>
+
+</section>
+
+
+<!-- ===================================
+SUGESTÕES
+=================================== -->
+
+<section
+id="sugestoes"
+class="tab">
+
+<div class="hero">
+
+<div>
+
+<p class="tag">
+COMUNICAÇÃO OPERACIONAL
+</p>
+
+<h1>
+Enviar sugestão
+</h1>
+
+<p class="hero-desc">
+
+Utilize este formulário para enviar
+observações, eventos importantes,
+ajustes de risco ou sugestões
+diretamente à gestão.
+
+</p>
+
+</div>
+
+</div>
+
+
+<div class="panel form-panel">
+
+<form
+action="https://formsubmit.co/contato@ginga.bet.br"
+method="POST">
+
+<input
+type="hidden"
+name="_subject"
+value="Nova sugestão - Calendário Ginga Analytics">
+
+<input
+type="hidden"
+name="_captcha"
+value="false">
+
+
+<div class="form-group">
+
+<label>
+Nome do analista
+</label>
+
+<input
+type="text"
+name="Analista"
+required
+placeholder="Seu nome">
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Tipo da sugestão
+</label>
+
+<select
+name="Tipo"
+required>
+
+<option value="">
+Selecione
+</option>
+
+<option>
+Evento importante
+</option>
+
+<option>
+Alteração de risco
+</option>
+
+<option>
+Jogo ausente
+</option>
+
+<option>
+Horário incorreto
+</option>
+
+<option>
+Sugestão operacional
+</option>
+
+<option>
+Outro
+</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Mensagem
+</label>
+
+<textarea
+name="Mensagem"
+required
+placeholder="Escreva sua sugestão...">
+</textarea>
+
+</div>
+
+
+<button
+class="submit-btn"
+type="submit">
+
+Enviar para a gestão
+
+</button>
+
+</form>
+
+</div>
+
+</section>
+
+
+<footer>
+
+<span>
+Ginga Analytics • Risk Operations
+</span>
+
+<span>
+Calendário Operacional • UTC-3
+</span>
+
+</footer>
+
+</main>
+
+
+<!-- ===================================
+MODAL DE SUGESTÃO DO JOGO
+=================================== -->
+
+<div
+class="modal"
+id="suggestModal">
+
+<div class="modal-box">
+
+<div class="modal-top">
+
+<div>
+
+<p class="tag">
+SUGESTÃO DO EVENTO
+</p>
+
+<h2 id="modalGame">
+Evento
+</h2>
+
+</div>
+
+<button
+class="close"
+onclick="closeModal()">
+
+×
+</button>
+
+</div>
+
+
+<form
+action="https://formsubmit.co/contato@ginga.bet.br"
+method="POST">
+
+<input
+type="hidden"
+name="_subject"
+value="Sugestão de evento - Calendário Ginga Analytics">
+
+<input
+type="hidden"
+name="_captcha"
+value="false">
+
+<input
+type="hidden"
+id="eventInput"
+name="Evento">
+
+
+<div class="form-group">
+
+<label>
+Analista
+</label>
+
+<input
+type="text"
+name="Analista"
+required
+placeholder="Seu nome">
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Sugestão / observação
+</label>
+
+<textarea
+name="Mensagem"
+required
+placeholder="Ex.: aumentar atenção neste evento, verificar exposição, mercado relevante...">
+</textarea>
+
+</div>
+
+
+<button
+class="submit-btn"
+type="submit">
+
+Enviar sugestão
+
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* =====================================
+102 JOGOS
+Todos horários em Brasília / Recife
+===================================== */
+
+const games = [
+
+/* =====================
+CHAMPIONS - 17
+===================== */
+
+["10/09","Champions League","Fenerbahçe","Roma","13:45"],
+["10/09","Champions League","PSV","Shakhtar Donetsk","13:45"],
+["10/09","Champions League","Como","RB Leipzig","16:00"],
+["10/09","Champions League","Bayern de Munique","Bodø/Glimt","16:00"],
+["10/09","Champions League","Manchester United","Sabah","16:00"],
+["10/09","Champions League","Slavia Praga","Lens","16:00"],
+
+["13/10","Champions League","Lens","Sporting","13:45"],
+["13/10","Champions League","Sabah","Slavia Praga","13:45"],
+["13/10","Champions League","Arsenal","Lille","16:00"],
+["13/10","Champions League","Atlético Madrid","Manchester United","16:00"],
+["13/10","Champions League","Inter","Club Brugge","16:00"],
+["13/10","Champions League","Galatasaray","Barcelona","16:00"],
+["13/10","Champions League","RB Leipzig","PSV","16:00"],
+["13/10","Champions League","Viking","Bayern de Munique","16:00"],
+["13/10","Champions League","Villarreal","Napoli","16:00"],
+
+["14/10","Champions League","Feyenoord","Como","13:45"],
+["14/10","Champions League","LASK","Liverpool","13:45"],
+
+
+/* =====================
+PREMIER LEAGUE - 17
+===================== */
+
+["12/09","Premier League","Aston Villa","Nottingham Forest","11:00"],
+["12/09","Premier League","Bournemouth","Brentford","11:00"],
+["12/09","Premier League","Chelsea","Hull City","11:00"],
+["12/09","Premier League","Crystal Palace","Ipswich","11:00"],
+["12/09","Premier League","Liverpool","Fulham","11:00"],
+["12/09","Premier League","Tottenham","Everton","13:30"],
+["12/09","Premier League","Sunderland","Arsenal","16:00"],
+
+["13/09","Premier League","Coventry","Brighton","10:00"],
+["13/09","Premier League","Manchester United","Manchester City","12:30"],
+
+["14/09","Premier League","Leeds","Newcastle","16:00"],
+
+["18/09","Premier League","Brentford","Chelsea","16:00"],
+
+["19/09","Premier League","Tottenham","Aston Villa","08:30"],
+["19/09","Premier League","Brighton","Arsenal","11:00"],
+["19/09","Premier League","Everton","Ipswich","11:00"],
+["19/09","Premier League","Newcastle","Hull City","11:00"],
+["19/09","Premier League","Nottingham Forest","Coventry","13:30"],
+
+["20/09","Premier League","Bournemouth","Liverpool","10:00"],
+
+
+/* =====================
+LA LIGA - 17
+===================== */
+
+["11/09","La Liga","Sevilla","Valencia","16:00"],
+
+["12/09","La Liga","Racing Santander","Alavés","09:00"],
+["12/09","La Liga","Osasuna","Espanyol","11:15"],
+["12/09","La Liga","Athletic Bilbao","Elche","13:30"],
+["12/09","La Liga","Real Madrid","Rayo Vallecano","16:00"],
+
+["13/09","La Liga","Celta de Vigo","Málaga","09:00"],
+["13/09","La Liga","Levante","Barcelona","11:15"],
+["13/09","La Liga","Getafe","Deportivo La Coruña","13:30"],
+["13/09","La Liga","Real Sociedad","Atlético Madrid","16:00"],
+
+["14/09","La Liga","Villarreal","Real Betis","16:00"],
+
+["15/09","La Liga","Rayo Vallecano","Espanyol","14:00"],
+["15/09","La Liga","Alavés","Valencia","15:00"],
+["15/09","La Liga","Elche","Real Madrid","16:30"],
+
+["16/09","La Liga","Atlético Madrid","Osasuna","14:00"],
+["16/09","La Liga","Deportivo La Coruña","Sevilla","14:00"],
+["16/09","La Liga","Barcelona","Racing Santander","16:30"],
+["16/09","La Liga","Levante","Athletic Bilbao","16:30"],
+
+
+/* =====================
+SERIE A - 17
+===================== */
+
+["11/09","Serie A","Venezia","Fiorentina","15:45"],
+
+["12/09","Serie A","Genoa","Frosinone","10:00"],
+["12/09","Serie A","Lazio","Milan","13:00"],
+["12/09","Serie A","Atalanta","Cagliari","15:45"],
+
+["13/09","Serie A","Lecce","Monza","10:00"],
+["13/09","Serie A","Napoli","Bologna","13:00"],
+["13/09","Serie A","Sassuolo","Juventus","15:45"],
+
+["14/09","Serie A","Como","Parma","13:30"],
+["14/09","Serie A","Torino","Roma","13:30"],
+["14/09","Serie A","Inter","Udinese","15:45"],
+
+["18/09","Serie A","Monza","Sassuolo","15:45"],
+
+["19/09","Serie A","Bologna","Torino","10:00"],
+["19/09","Serie A","Udinese","Cagliari","10:00"],
+["19/09","Serie A","Roma","Inter","13:00"],
+["19/09","Serie A","Venezia","Lazio","15:45"],
+
+["20/09","Serie A","Fiorentina","Napoli","07:30"],
+["20/09","Serie A","Frosinone","Como","10:00"],
+
+
+/* =====================
+BUNDESLIGA - 17
+===================== */
+
+["11/09","Bundesliga","Union Berlin","Schalke 04","15:30"],
+
+["12/09","Bundesliga","Borussia Dortmund","Paderborn","10:30"],
+["12/09","Bundesliga","Hoffenheim","Stuttgart","10:30"],
+["12/09","Bundesliga","Freiburg","Borussia M'Gladbach","10:30"],
+["12/09","Bundesliga","Augsburg","Bayer Leverkusen","10:30"],
+["12/09","Bundesliga","Mainz","Eintracht Frankfurt","10:30"],
+["12/09","Bundesliga","Colônia","Werder Bremen","13:30"],
+
+["13/09","Bundesliga","RB Leipzig","Hamburg","10:30"],
+["13/09","Bundesliga","Elversberg","Bayern de Munique","12:30"],
+
+["18/09","Bundesliga","Bayern de Munique","Union Berlin","15:30"],
+
+["19/09","Bundesliga","Eintracht Frankfurt","Freiburg","10:30"],
+["19/09","Bundesliga","Borussia M'Gladbach","Mainz","10:30"],
+["19/09","Bundesliga","Hamburg","Colônia","10:30"],
+["19/09","Bundesliga","Werder Bremen","Augsburg","10:30"],
+["19/09","Bundesliga","Stuttgart","Borussia Dortmund","13:30"],
+
+["20/09","Bundesliga","Bayer Leverkusen","RB Leipzig","10:30"],
+["20/09","Bundesliga","Schalke 04","Elversberg","12:30"],
+
+
+/* =====================
+LIGUE 1 - 17
+===================== */
+
+["11/09","Ligue 1","Rennes","Marseille","15:45"],
+
+["12/09","Ligue 1","Strasbourg","Monaco","12:15"],
+["12/09","Ligue 1","Auxerre","Nice","15:45"],
+["12/09","Ligue 1","Le Havre","Angers","15:45"],
+["12/09","Ligue 1","Lorient","Toulouse","15:45"],
+["12/09","Ligue 1","Paris FC","Lyon","15:45"],
+
+["13/09","Ligue 1","Lille","Troyes","10:00"],
+["13/09","Ligue 1","Le Mans","Lens","12:15"],
+["13/09","Ligue 1","Brest","PSG","15:45"],
+
+["18/09","Ligue 1","Monaco","Lens","15:45"],
+
+["19/09","Ligue 1","Paris FC","Strasbourg","12:15"],
+["19/09","Ligue 1","Angers","Troyes","15:45"],
+["19/09","Ligue 1","Le Mans","Lorient","15:45"],
+["19/09","Ligue 1","Lyon","Rennes","15:45"],
+["19/09","Ligue 1","Toulouse","Le Havre","15:45"],
+
+["20/09","Ligue 1","Auxerre","Brest","10:00"],
+["20/09","Ligue 1","Nice","Lille","12:15"]
+
+];
+
+
+/* =====================================
+TIMES GRANDES / CRITÉRIO OPERACIONAL
+===================================== */
+
+const bigTeams = [
+
+"Real Madrid",
+"Barcelona",
+"Atlético Madrid",
+"Manchester City",
+"Manchester United",
+"Liverpool",
+"Arsenal",
+"Chelsea",
+"Tottenham",
+"Bayern de Munique",
+"Borussia Dortmund",
+"PSG",
+"Marseille",
+"Inter",
+"Milan",
+"Juventus",
+"Napoli",
+"Roma"
+
+];
+
+
+/* =====================================
+CLASSIFICAÇÃO DE RISCO
+===================================== */
+
+function getRisk(home,away){
+
+    const homeBig =
+    bigTeams.includes(home);
+
+    const awayBig =
+    bigTeams.includes(away);
+
+    if(homeBig && awayBig){
+
+        return "maximo";
+
+    }
+
+    if(homeBig || awayBig){
+
+        return "alto";
+
+    }
+
+    return "medio";
+
+}
+
+
+/* =====================================
+CLASSE DA LIGA
+===================================== */
+
+function leagueClass(liga){
+
+    const map={
+
+        "Champions League":"ucl",
+
+        "Premier League":"epl",
+
+        "La Liga":"laliga",
+
+        "Serie A":"seriea",
+
+        "Bundesliga":"bundesliga",
+
+        "Ligue 1":"ligue1"
+
+    };
+
+    return map[liga];
+
+}
+
+
+/* =====================================
+NOME DO RISCO
+===================================== */
+
+function riskText(risco){
+
+    if(risco==="maximo")
+    return "Máxima";
+
+    if(risco==="alto")
+    return "Alta";
+
+    return "Média";
+
+}
+
+
+/* =====================================
+RENDERIZAR TABELA
+===================================== */
+
+function renderGames(){
+
+    const body =
+    document.getElementById("gamesBody");
+
+    const liga =
+    document.getElementById("filtroLiga").value;
+
+    const risco =
+    document.getElementById("filtroRisco").value;
+
+    const busca =
+    document.getElementById("busca")
+    .value
+    .toLowerCase();
+
+    body.innerHTML="";
+
+    games.forEach(game=>{
+
+        const[
+            data,
+            competition,
+            home,
+            away,
+            hora
+        ]=game;
+
+        const gameRisk =
+        getRisk(home,away);
+
+        const texto =
+        `${data} ${competition} ${home} ${away}`
+        .toLowerCase();
+
+
+        if(
+            liga!=="todos" &&
+            competition!==liga
+        ){
+            return;
+        }
+
+
+        if(
+            risco!=="todos" &&
+            gameRisk!==risco
+        ){
+            return;
+        }
+
+
+        if(
+            busca &&
+            !texto.includes(busca)
+        ){
+            return;
+        }
+
+
+        const tr =
+        document.createElement("tr");
+
+
+        tr.innerHTML=`
+
+        <td>
+        ${data}
+        </td>
+
+        <td>
+
+        <span
+        class="liga ${leagueClass(competition)}">
+
+        ${competition}
+
+        </span>
+
+        </td>
+
+        <td class="game">
+
+        ${home}
+        <span style="color:#60748d">
+        ×
+        </span>
+        ${away}
+
+        </td>
+
+        <td>
+        ${hora}
+        </td>
+
+        <td>
+
+        <span
+        class="risk ${gameRisk}">
+
+        ${riskText(gameRisk)}
+
+        </span>
+
+        </td>
+
+        <td>
+
+        <button
+        class="btn-suggest">
+
+        Sugerir
+
+        </button>
+
+        </td>
+
+        `;
+
+
+        tr.querySelector(
+        ".btn-suggest"
+        )
+        .addEventListener(
+        "click",
+        ()=>openModal(
+        `${home} × ${away} - ${data}`
+        )
+        );
+
+
+        body.appendChild(tr);
+
+    });
+
+}
+
+
+/* =====================================
+CONTADORES
+===================================== */
+
+function renderCounters(){
+
+    document.getElementById(
+    "totalJogos"
+    ).textContent=
+    games.length;
+
+
+    const high =
+    games.filter(g=>{
+
+        const risk=
+        getRisk(g[2],g[3]);
+
+        return(
+            risk==="alto" ||
+            risk==="maximo"
+        );
+
+    }).length;
+
+
+    document.getElementById(
+    "totalPrioridade"
+    ).textContent=
+    high;
+
+}
+
+
+/* =====================================
+PRIORIDADES
+===================================== */
+
+function renderPriorities(){
+
+    const grid =
+    document.getElementById(
+    "priorityGrid"
+    );
+
+    grid.innerHTML="";
+
+
+    games.forEach(game=>{
+
+        const[
+        data,
+        liga,
+        home,
+        away,
+        hora
+        ]=game;
+
+
+        const risk=
+        getRisk(home,away);
+
+
+        if(
+            risk!=="maximo"
+        ){
+            return;
+        }
+
+
+        const div=
+        document.createElement("div");
+
+        div.className=
+        "priority-card";
+
+
+        div.innerHTML=`
+
+        <span
+        class="liga ${leagueClass(liga)}">
+
+        ${liga}
+
+        </span>
+
+        <h3>
+
+        ${home}
+        ×
+        ${away}
+
+        </h3>
+
+        <p>
+
+        📅 ${data}
+        &nbsp;
+        ⏰ ${hora}
+
+        </p>
+
+        <p>
+
+        Recomendação:
+        monitoramento reforçado de
+        exposição, limites e
+        apostas high stakes.
+
+        </p>
+
+        `;
+
+        grid.appendChild(div);
+
+    });
+
+}
+
+
+/* =====================================
+COMPETIÇÕES
+===================================== */
+
+function renderLeagues(){
+
+    const leagues=[
+
+        "Champions League",
+        "Premier League",
+        "La Liga",
+        "Serie A",
+        "Bundesliga",
+        "Ligue 1"
+
+    ];
+
+
+    const grid=
+    document.getElementById(
+    "leagueGrid"
+    );
+
+
+    leagues.forEach(liga=>{
+
+        const qtd=
+        games.filter(
+        g=>g[1]===liga
+        ).length;
+
+
+        const div=
+        document.createElement("div");
+
+        div.className=
+        "league-card";
+
+
+        div.innerHTML=`
+
+        <span
+        class="liga ${leagueClass(liga)}">
+
+        ${liga}
+
+        </span>
+
+        <strong>
+        ${qtd}
+        </strong>
+
+        <p>
+        eventos cadastrados
+        </p>
+
+        `;
+
+
+        div.onclick=()=>{
+
+            document.getElementById(
+            "filtroLiga"
+            ).value=liga;
+
+            changeTab("agenda");
+
+            renderGames();
+
+        };
+
+
+        grid.appendChild(div);
+
+    });
+
+}
+
+
+/* =====================================
+ABAS
+===================================== */
+
+const navButtons=
+document.querySelectorAll(
+".nav-btn"
+);
+
+
+navButtons.forEach(btn=>{
+
+    btn.addEventListener(
+    "click",
+    ()=>{
+
+        changeTab(
+        btn.dataset.tab
+        );
+
+    });
+
+});
+
+
+function changeTab(tabName){
+
+    document
+    .querySelectorAll(".tab")
+    .forEach(tab=>{
+
+        tab.classList.remove(
+        "active"
+        );
+
+    });
+
+
+    document
+    .querySelectorAll(
+    ".nav-btn"
+    )
+    .forEach(btn=>{
+
+        btn.classList.remove(
+        "active"
+        );
+
+    });
+
+
+    document
+    .getElementById(tabName)
+    .classList.add(
+    "active"
+    );
+
+
+    document
+    .querySelector(
+    `[data-tab="${tabName}"]`
+    )
+    .classList.add(
+    "active"
+    );
+
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+
+/* =====================================
+MODAL
+===================================== */
+
+function openModal(evento){
+
+    document
+    .getElementById(
+    "modalGame"
+    )
+    .textContent=
+    evento;
+
+
+    document
+    .getElementById(
+    "eventInput"
+    )
+    .value=
+    evento;
+
+
+    document
+    .getElementById(
+    "suggestModal"
+    )
+    .classList.add(
+    "active"
+    );
+
+}
+
+
+function closeModal(){
+
+    document
+    .getElementById(
+    "suggestModal"
+    )
+    .classList.remove(
+    "active"
+    );
+
+}
+
+
+document
+.getElementById(
+"suggestModal"
+)
+.addEventListener(
+"click",
+event=>{
+
+    if(
+        event.target.id===
+        "suggestModal"
+    ){
+
+        closeModal();
+
+    }
+
+});
+
+
+/* =====================================
+FILTROS
+===================================== */
+
+document
+.getElementById(
+"filtroLiga"
+)
+.addEventListener(
+"change",
+renderGames
+);
+
+
+document
+.getElementById(
+"filtroRisco"
+)
+.addEventListener(
+"change",
+renderGames
+);
+
+
+document
+.getElementById(
+"busca"
+)
+.addEventListener(
+"input",
+renderGames
+);
+
+
+/* =====================================
+INICIAR
+===================================== */
+
+renderGames();
+
+renderCounters();
+
+renderPriorities();
+
+renderLeagues();
+
+</script>
+
 </body>
 </html>
