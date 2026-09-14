@@ -173,3 +173,10 @@ td { color:#dce6f4; }
   .filter-row input,.filter-row select,.filter-row .btn { width:100%; min-width:0; }
   .reset-banner { align-items:flex-start; flex-direction:column; }
 }
+
+/* v3: melhorias financeiras */
+#todayDiffText { display:block; line-height:1.35; }
+.mini-stats { gap:0; }
+.mini-stats > div { min-height:46px; }
+#rollingDiff { color:var(--text); }
+#amount { font-variant-numeric: tabular-nums; }

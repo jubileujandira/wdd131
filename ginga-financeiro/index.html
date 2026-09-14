@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Painel Ginga Analytics para registro de depósitos e saques com visão das últimas 24 horas." />
   <title>Ginga Analytics • Financeiro 24h</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css?v=3" />
 </head>
 <body>
   <div class="app-shell">
@@ -72,7 +72,7 @@
           <article class="kpi-card net">
             <span class="kpi-label">Saldo operacional</span>
             <strong id="todayNetValue">R$ 0,00</strong>
-            <small>depósitos − saques</small>
+            <small id="todayDiffText">depósitos − saques</small>
           </article>
           <article class="kpi-card volume">
             <span class="kpi-label">Volume 24h</span>
@@ -113,6 +113,7 @@
             <div class="mini-stats">
               <div><span>Depósitos</span><strong id="rollingDeposit">R$ 0,00</strong></div>
               <div><span>Saques</span><strong id="rollingWithdraw">R$ 0,00</strong></div>
+              <div><span>Diferença D × S</span><strong id="rollingDiff">R$ 0,00</strong></div>
             </div>
           </article>
         </div>
@@ -143,8 +144,8 @@
               <label>Valor (R$)
                 <input id="amount" type="text" inputmode="decimal" placeholder="Ex.: 128.715,50" autocomplete="off" required />
               </label>
-              <label>Cliente / ID
-                <input id="client" type="text" placeholder="Ex.: ID 1459921" required />
+              <label>Referência / Período
+                <input id="client" type="text" placeholder="Ex.: Total 00h–12h (opcional)" />
               </label>
               <label>Analista
                 <input id="analyst" type="text" placeholder="Nome do analista" required />
@@ -198,11 +199,11 @@
           <div class="message-preview" id="messagePreview">Nenhum registro salvo ainda.</div>
           <div class="stack-actions">
             <button class="btn primary" id="copyMessageBtn" type="button">Copiar mensagem</button>
-            <button class="btn whatsapp" id="openEmailBtn" type="button">Abrir e-mail</button>
+            <button class="btn whatsapp" id="openEmailBtn" type="button">Preparar no Gmail</button>
           </div>
           <div class="info-box">
             <strong>Como funciona</strong>
-            <span>Ao clicar em “Abrir e-mail”, o aplicativo de e-mail do computador será aberto com os três destinatários, assunto e detalhes da movimentação já preenchidos. O envio automático sem confirmação exige uma integração de e-mail/backend.</span>
+            <span>Ao clicar em “Preparar no Gmail”, o Gmail Web abre com destinatários, assunto e detalhes já preenchidos. Por segurança, o envio só acontece quando você clicar em “Enviar” no Gmail. Envio automático exige integração com um serviço de e-mail/backend.</span>
           </div>
         </article>
       </section>
@@ -249,6 +250,6 @@
   </div>
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
-  <script src="app.js"></script>
+  <script src="app.js?v=3"></script>
 </body>
 </html>
