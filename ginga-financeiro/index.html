@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Painel Ginga Analytics para registro de depósitos e saques com visão das últimas 24 horas." />
+  <title>Ginga Analytics • Financeiro 24h</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">G</div>
+        <div>
+          <strong>GINGA</strong>
+          <span>Analytics</span>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a class="nav-item active" href="#dashboard">◈ <span>Dashboard</span></a>
+        <a class="nav-item" href="#registro">＋ <span>Novo registro</span></a>
+        <a class="nav-item" href="#historico">▤ <span>Histórico</span></a>
+      </nav>
+
+      <div class="sidebar-card">
+        <span class="status-dot"></span>
+        <div>
+          <strong>Turno financeiro</strong>
+          <small id="sidebarDate">—</small>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">GINGA ANALYTICS / FINANCEIRO</p>
+          <h1>Depósitos & Saques</h1>
+          <p class="subtle">Acompanhamento operacional das últimas 24 horas.</p>
+        </div>
+        <div class="topbar-actions">
+          <div class="clock-box">
+            <span>Agora</span>
+            <strong id="clock">--:--:--</strong>
+          </div>
+          <button class="btn ghost" id="exportBtn">Exportar CSV</button>
+        </div>
+      </header>
+
+      <section id="dashboard" class="section">
+        <div class="reset-banner">
+          <div>
+            <strong>Janela diária</strong>
+            <span>Os indicadores do dia reiniciam automaticamente à 00:00. O histórico continua salvo no navegador.</span>
+          </div>
+          <span id="countdownMidnight" class="countdown">—</span>
+        </div>
+
+        <div class="kpi-grid">
+          <article class="kpi-card deposit">
+            <span class="kpi-label">Depósitos hoje</span>
+            <strong id="todayDepositValue">R$ 0,00</strong>
+            <small><b id="todayDepositCount">0</b> registros</small>
+          </article>
+          <article class="kpi-card withdraw">
+            <span class="kpi-label">Saques hoje</span>
+            <strong id="todayWithdrawValue">R$ 0,00</strong>
+            <small><b id="todayWithdrawCount">0</b> registros</small>
+          </article>
+          <article class="kpi-card net">
+            <span class="kpi-label">Saldo operacional</span>
+            <strong id="todayNetValue">R$ 0,00</strong>
+            <small>depósitos − saques</small>
+          </article>
+          <article class="kpi-card volume">
+            <span class="kpi-label">Volume 24h</span>
+            <strong id="rolling24Value">R$ 0,00</strong>
+            <small><b id="rolling24Count">0</b> movimentações</small>
+          </article>
+        </div>
+
+        <div class="chart-grid">
+          <article class="panel chart-panel">
+            <div class="panel-head">
+              <div>
+                <span class="panel-kicker">FLUXO</span>
+                <h2>Movimentações por hora</h2>
+              </div>
+              <div class="legend">
+                <span><i class="legend-dot deposit-dot"></i>Depósitos</span>
+                <span><i class="legend-dot withdraw-dot"></i>Saques</span>
+              </div>
+            </div>
+            <canvas id="flowChart" width="900" height="310"></canvas>
+          </article>
+
+          <article class="panel donut-panel">
+            <div class="panel-head">
+              <div>
+                <span class="panel-kicker">DISTRIBUIÇÃO</span>
+                <h2>Últimas 24h</h2>
+              </div>
+            </div>
+            <div class="donut-wrap">
+              <canvas id="donutChart" width="300" height="300"></canvas>
+              <div class="donut-center">
+                <span>Total</span>
+                <strong id="donutTotal">R$ 0</strong>
+              </div>
+            </div>
+            <div class="mini-stats">
+              <div><span>Depósitos</span><strong id="rollingDeposit">R$ 0,00</strong></div>
+              <div><span>Saques</span><strong id="rollingWithdraw">R$ 0,00</strong></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="registro" class="section section-grid">
+        <article class="panel form-panel">
+          <div class="panel-head">
+            <div>
+              <span class="panel-kicker">LANÇAMENTO</span>
+              <h2>Registrar movimentação</h2>
+            </div>
+          </div>
+
+          <form id="transactionForm">
+            <div class="segmented" role="group" aria-label="Tipo de movimentação">
+              <label>
+                <input type="radio" name="type" value="deposito" checked />
+                <span>↓ Depósito</span>
+              </label>
+              <label>
+                <input type="radio" name="type" value="saque" />
+                <span>↑ Saque</span>
+              </label>
+            </div>
+
+            <div class="form-grid">
+              <label>Valor (R$)
+                <input id="amount" type="text" inputmode="decimal" placeholder="Ex.: 128.715,50" autocomplete="off" required />
+              </label>
+              <label>Cliente / ID
+                <input id="client" type="text" placeholder="Ex.: ID 1459921" required />
+              </label>
+              <label>Analista
+                <input id="analyst" type="text" placeholder="Nome do analista" required />
+              </label>
+              <label>Status
+                <select id="status">
+                  <option value="Processado">Processado</option>
+                  <option value="Pendente">Pendente</option>
+                  <option value="Em análise">Em análise</option>
+                  <option value="Recusado">Recusado</option>
+                </select>
+              </label>
+              <label>Origem
+                <select id="origin">
+                  <option>PIX</option>
+                  <option>Banco</option>
+                  <option>Gateway</option>
+                  <option>Manual</option>
+                  <option>Outro</option>
+                </select>
+              </label>
+              <label>Horário
+                <input id="datetime" type="datetime-local" required />
+              </label>
+              <label class="full">Observação
+                <textarea id="notes" rows="3" placeholder="Ex.: atraso no processamento, caso escalado, confirmação bancária..."></textarea>
+              </label>
+            </div>
+
+            <div class="form-actions">
+              <button class="btn primary" type="submit">Salvar movimentação</button>
+              <button class="btn ghost" type="button" id="clearFormBtn">Limpar</button>
+            </div>
+          </form>
+        </article>
+
+        <article class="panel whatsapp-panel">
+          <div class="panel-head">
+            <div>
+              <span class="panel-kicker">E-MAIL OPERACIONAL</span>
+              <h2>Enviar movimentação</h2>
+            </div>
+          </div>
+          <p class="subtle">O último registro fica pronto para envio aos responsáveis abaixo.</p>
+
+          <div class="info-box" style="margin-bottom: 14px;">
+            <strong>Destinatários</strong>
+            <span>kauanluz@ginga.bet.br<br>victorfernandes@ginga.bet.br<br>leandroarcres@gmail.com</span>
+          </div>
+
+          <div class="message-preview" id="messagePreview">Nenhum registro salvo ainda.</div>
+          <div class="stack-actions">
+            <button class="btn primary" id="copyMessageBtn" type="button">Copiar mensagem</button>
+            <button class="btn whatsapp" id="openEmailBtn" type="button">Abrir e-mail</button>
+          </div>
+          <div class="info-box">
+            <strong>Como funciona</strong>
+            <span>Ao clicar em “Abrir e-mail”, o aplicativo de e-mail do computador será aberto com os três destinatários, assunto e detalhes da movimentação já preenchidos. O envio automático sem confirmação exige uma integração de e-mail/backend.</span>
+          </div>
+        </article>
+      </section>
+
+      <section id="historico" class="section">
+        <article class="panel">
+          <div class="panel-head history-head">
+            <div>
+              <span class="panel-kicker">HISTÓRICO</span>
+              <h2>Movimentações salvas</h2>
+            </div>
+            <div class="filter-row">
+              <select id="filterType">
+                <option value="todos">Todos</option>
+                <option value="deposito">Depósitos</option>
+                <option value="saque">Saques</option>
+              </select>
+              <input id="searchInput" type="search" placeholder="Buscar cliente, analista ou status" />
+              <button class="btn danger" id="clearHistoryBtn" type="button">Apagar histórico</button>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Data/Hora</th>
+                  <th>Tipo</th>
+                  <th>Cliente</th>
+                  <th>Valor</th>
+                  <th>Status</th>
+                  <th>Analista</th>
+                  <th>Origem</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="historyBody"></tbody>
+            </table>
+          </div>
+          <div id="emptyState" class="empty-state">Nenhuma movimentação encontrada.</div>
+        </article>
+      </section>
+    </main>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
