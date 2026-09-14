@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Painel Ginga Analytics para registro de depósitos e saques com visão das últimas 24 horas." />
-  <title>Ginga Analytics • Financeiro 24h</title>
+  <meta name="description" content="Painel Ginga Analytics para registro de depÃ³sitos e saques com visÃ£o das Ãºltimas 24 horas." />
+  <title>Ginga Analytics â€¢ Financeiro 24h</title>
   <link rel="stylesheet" href="styles.css?v=3" />
 </head>
 <body>
@@ -19,16 +19,16 @@
       </div>
 
       <nav class="nav">
-        <a class="nav-item active" href="#dashboard">◈ <span>Dashboard</span></a>
-        <a class="nav-item" href="#registro">＋ <span>Novo registro</span></a>
-        <a class="nav-item" href="#historico">▤ <span>Histórico</span></a>
+        <a class="nav-item active" href="#dashboard">â—ˆ <span>Dashboard</span></a>
+        <a class="nav-item" href="#registro">ï¼‹ <span>Novo registro</span></a>
+        <a class="nav-item" href="#historico">â–¤ <span>HistÃ³rico</span></a>
       </nav>
 
       <div class="sidebar-card">
         <span class="status-dot"></span>
         <div>
           <strong>Turno financeiro</strong>
-          <small id="sidebarDate">—</small>
+          <small id="sidebarDate">â€”</small>
         </div>
       </div>
     </aside>
@@ -37,8 +37,8 @@
       <header class="topbar">
         <div>
           <p class="eyebrow">GINGA ANALYTICS / FINANCEIRO</p>
-          <h1>Depósitos & Saques</h1>
-          <p class="subtle">Acompanhamento operacional das últimas 24 horas.</p>
+          <h1>DepÃ³sitos & Saques</h1>
+          <p class="subtle">Acompanhamento operacional das Ãºltimas 24 horas.</p>
         </div>
         <div class="topbar-actions">
           <div class="clock-box">
@@ -52,15 +52,15 @@
       <section id="dashboard" class="section">
         <div class="reset-banner">
           <div>
-            <strong>Janela diária</strong>
-            <span>Os indicadores do dia reiniciam automaticamente à 00:00. O histórico continua salvo no navegador.</span>
+            <strong>Janela diÃ¡ria</strong>
+            <span>Os indicadores do dia reiniciam automaticamente Ã  00:00. O histÃ³rico continua salvo no navegador.</span>
           </div>
-          <span id="countdownMidnight" class="countdown">—</span>
+          <span id="countdownMidnight" class="countdown">â€”</span>
         </div>
 
         <div class="kpi-grid">
           <article class="kpi-card deposit">
-            <span class="kpi-label">Depósitos hoje</span>
+            <span class="kpi-label">DepÃ³sitos hoje</span>
             <strong id="todayDepositValue">R$ 0,00</strong>
             <small><b id="todayDepositCount">0</b> registros</small>
           </article>
@@ -72,12 +72,12 @@
           <article class="kpi-card net">
             <span class="kpi-label">Saldo operacional</span>
             <strong id="todayNetValue">R$ 0,00</strong>
-            <small id="todayDiffText">depósitos − saques</small>
+            <small id="todayDiffText">depÃ³sitos âˆ’ saques</small>
           </article>
           <article class="kpi-card volume">
             <span class="kpi-label">Volume 24h</span>
             <strong id="rolling24Value">R$ 0,00</strong>
-            <small><b id="rolling24Count">0</b> movimentações</small>
+            <small><b id="rolling24Count">0</b> movimentaÃ§Ãµes</small>
           </article>
         </div>
 
@@ -86,10 +86,10 @@
             <div class="panel-head">
               <div>
                 <span class="panel-kicker">FLUXO</span>
-                <h2>Movimentações por hora</h2>
+                <h2>MovimentaÃ§Ãµes por hora</h2>
               </div>
               <div class="legend">
-                <span><i class="legend-dot deposit-dot"></i>Depósitos</span>
+                <span><i class="legend-dot deposit-dot"></i>DepÃ³sitos</span>
                 <span><i class="legend-dot withdraw-dot"></i>Saques</span>
               </div>
             </div>
@@ -99,8 +99,8 @@
           <article class="panel donut-panel">
             <div class="panel-head">
               <div>
-                <span class="panel-kicker">DISTRIBUIÇÃO</span>
-                <h2>Últimas 24h</h2>
+                <span class="panel-kicker">DISTRIBUIÃ‡ÃƒO</span>
+                <h2>Ãšltimas 24h</h2>
               </div>
             </div>
             <div class="donut-wrap">
@@ -111,9 +111,9 @@
               </div>
             </div>
             <div class="mini-stats">
-              <div><span>Depósitos</span><strong id="rollingDeposit">R$ 0,00</strong></div>
+              <div><span>DepÃ³sitos</span><strong id="rollingDeposit">R$ 0,00</strong></div>
               <div><span>Saques</span><strong id="rollingWithdraw">R$ 0,00</strong></div>
-              <div><span>Diferença D × S</span><strong id="rollingDiff">R$ 0,00</strong></div>
+              <div><span>DiferenÃ§a D Ã— S</span><strong id="rollingDiff">R$ 0,00</strong></div>
             </div>
           </article>
         </div>
@@ -123,20 +123,20 @@
         <article class="panel form-panel">
           <div class="panel-head">
             <div>
-              <span class="panel-kicker">LANÇAMENTO</span>
-              <h2>Registrar movimentação</h2>
+              <span class="panel-kicker">LANÃ‡AMENTO</span>
+              <h2>Registrar movimentaÃ§Ã£o</h2>
             </div>
           </div>
 
           <form id="transactionForm">
-            <div class="segmented" role="group" aria-label="Tipo de movimentação">
+            <div class="segmented" role="group" aria-label="Tipo de movimentaÃ§Ã£o">
               <label>
                 <input type="radio" name="type" value="deposito" checked />
-                <span>↓ Depósito</span>
+                <span>â†“ DepÃ³sito</span>
               </label>
               <label>
                 <input type="radio" name="type" value="saque" />
-                <span>↑ Saque</span>
+                <span>â†‘ Saque</span>
               </label>
             </div>
 
@@ -144,8 +144,8 @@
               <label>Valor (R$)
                 <input id="amount" type="text" inputmode="decimal" placeholder="Ex.: 128.715,50" autocomplete="off" required />
               </label>
-              <label>Referência / Período
-                <input id="client" type="text" placeholder="Ex.: Total 00h–12h (opcional)" />
+              <label>ReferÃªncia / PerÃ­odo
+                <input id="client" type="text" placeholder="Ex.: Total 00hâ€“12h (opcional)" />
               </label>
               <label>Analista
                 <input id="analyst" type="text" placeholder="Nome do analista" required />
@@ -154,7 +154,7 @@
                 <select id="status">
                   <option value="Processado">Processado</option>
                   <option value="Pendente">Pendente</option>
-                  <option value="Em análise">Em análise</option>
+                  <option value="Em anÃ¡lise">Em anÃ¡lise</option>
                   <option value="Recusado">Recusado</option>
                 </select>
               </label>
@@ -167,16 +167,16 @@
                   <option>Outro</option>
                 </select>
               </label>
-              <label>Horário
+              <label>HorÃ¡rio
                 <input id="datetime" type="datetime-local" required />
               </label>
-              <label class="full">Observação
-                <textarea id="notes" rows="3" placeholder="Ex.: atraso no processamento, caso escalado, confirmação bancária..."></textarea>
+              <label class="full">ObservaÃ§Ã£o
+                <textarea id="notes" rows="3" placeholder="Ex.: atraso no processamento, caso escalado, confirmaÃ§Ã£o bancÃ¡ria..."></textarea>
               </label>
             </div>
 
             <div class="form-actions">
-              <button class="btn primary" type="submit">Salvar movimentação</button>
+              <button class="btn primary" type="submit">Salvar movimentaÃ§Ã£o</button>
               <button class="btn ghost" type="button" id="clearFormBtn">Limpar</button>
             </div>
           </form>
@@ -186,13 +186,13 @@
           <div class="panel-head">
             <div>
               <span class="panel-kicker">E-MAIL OPERACIONAL</span>
-              <h2>Enviar movimentação</h2>
+              <h2>Enviar movimentaÃ§Ã£o</h2>
             </div>
           </div>
-          <p class="subtle">O último registro fica pronto para envio aos responsáveis abaixo.</p>
+          <p class="subtle">O Ãºltimo registro fica pronto para envio aos responsÃ¡veis abaixo.</p>
 
           <div class="info-box" style="margin-bottom: 14px;">
-            <strong>Destinatários</strong>
+            <strong>DestinatÃ¡rios</strong>
             <span>kauanluz@ginga.bet.br<br>victorfernandes@ginga.bet.br<br>leandroarcres@gmail.com</span>
           </div>
 
@@ -203,7 +203,7 @@
           </div>
           <div class="info-box">
             <strong>Como funciona</strong>
-            <span>Ao clicar em “Preparar no Gmail”, o Gmail Web abre com destinatários, assunto e detalhes já preenchidos. Por segurança, o envio só acontece quando você clicar em “Enviar” no Gmail. Envio automático exige integração com um serviço de e-mail/backend.</span>
+            <span>Ao clicar em â€œPreparar no Gmailâ€, o Gmail Web abre com destinatÃ¡rios, assunto e detalhes jÃ¡ preenchidos. Por seguranÃ§a, o envio sÃ³ acontece quando vocÃª clicar em â€œEnviarâ€ no Gmail. Envio automÃ¡tico exige integraÃ§Ã£o com um serviÃ§o de e-mail/backend.</span>
           </div>
         </article>
       </section>
@@ -212,17 +212,17 @@
         <article class="panel">
           <div class="panel-head history-head">
             <div>
-              <span class="panel-kicker">HISTÓRICO</span>
-              <h2>Movimentações salvas</h2>
+              <span class="panel-kicker">HISTÃ“RICO</span>
+              <h2>MovimentaÃ§Ãµes salvas</h2>
             </div>
             <div class="filter-row">
               <select id="filterType">
                 <option value="todos">Todos</option>
-                <option value="deposito">Depósitos</option>
+                <option value="deposito">DepÃ³sitos</option>
                 <option value="saque">Saques</option>
               </select>
               <input id="searchInput" type="search" placeholder="Buscar cliente, analista ou status" />
-              <button class="btn danger" id="clearHistoryBtn" type="button">Apagar histórico</button>
+              <button class="btn danger" id="clearHistoryBtn" type="button">Apagar histÃ³rico</button>
             </div>
           </div>
 
@@ -243,13 +243,14 @@
               <tbody id="historyBody"></tbody>
             </table>
           </div>
-          <div id="emptyState" class="empty-state">Nenhuma movimentação encontrada.</div>
+          <div id="emptyState" class="empty-state">Nenhuma movimentaÃ§Ã£o encontrada.</div>
         </article>
       </section>
     </main>
   </div>
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
-  <script src="app.js?v=3"></script>
+  <script type="module" src="app.js?v=4"></script>
 </body>
 </html>
+
