@@ -1,5 +1,10 @@
-const STORAGE_KEY = 'ginga_financeiro_transactions_v2';
-const LEGACY_KEY = 'ginga_financeiro_transactions_v1';
+import {
+  saveTransaction,
+  removeTransaction,
+  subscribeTransactions,
+  clearAllTransactions
+} from "./firebase.js";
+
 const EMAILS = [
   'kauanluz@ginga.bet.br',
   'victorfernandes@ginga.bet.br',
@@ -7,8 +12,9 @@ const EMAILS = [
 ];
 
 const els = {};
-let transactions = loadTransactions();
+let transactions = [];
 let lastSavedId = null;
+let unsubscribeTransactions = null;
 
 function qs(id) { return document.getElementById(id); }
 
@@ -17,7 +23,6 @@ function parseBRL(value) {
   if (!raw) return NaN;
   raw = raw.replace(/[^0-9.,-]/g, '');
 
-  // Padrão BR: 128.715,50 / 250000,75
   if (raw.includes(',')) {
     const lastComma = raw.lastIndexOf(',');
     const integerPart = raw.slice(0, lastComma).replace(/[.]/g, '');
@@ -26,10 +31,6 @@ function parseBRL(value) {
     return Number(normalized);
   }
 
-  // Apenas ponto:
-  // 128.715 => 128715
-  // 128.75 => 128.75
-  // 128.71550 => 128715.50 (milhar + centavos digitados ao final)
   if (raw.includes('.')) {
     const parts = raw.split('.');
     const digits = raw.replace(/\./g, '');
@@ -60,12 +61,16 @@ function safeAmount(value) {
 }
 
 function money(value) {
-  return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(safeAmount(value));
+  return new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL'
+  }).format(safeAmount(value));
 }
 
 function normalizeAmountField() {
   const parsed = parseBRL(els.amount.value);
   if (!Number.isFinite(parsed)) return;
+
   els.amount.value = new Intl.NumberFormat('pt-BR', {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
@@ -74,7 +79,12 @@ function normalizeAmountField() {
 
 function dateTimeBR(iso) {
   const d = new Date(iso);
-  return Number.isNaN(d.getTime()) ? '—' : new Intl.DateTimeFormat('pt-BR', { dateStyle: 'short', timeStyle: 'short' }).format(d);
+  return Number.isNaN(d.getTime())
+    ? '—'
+    : new Intl.DateTimeFormat('pt-BR', {
+        dateStyle: 'short',
+        timeStyle: 'short'
+      }).format(d);
 }
 
 function isoLocal(date = new Date()) {
@@ -83,17 +93,13 @@ function isoLocal(date = new Date()) {
 }
 
 function sameLocalDay(a, b = new Date()) {
-  return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
+  return a.getFullYear() === b.getFullYear()
+    && a.getMonth() === b.getMonth()
+    && a.getDate() === b.getDate();
 }
 
-function loadTransactions() {
-  let raw = localStorage.getItem(STORAGE_KEY);
-  if (!raw) raw = localStorage.getItem(LEGACY_KEY);
-  let list = [];
-  try { list = JSON.parse(raw || '[]'); } catch { list = []; }
-  if (!Array.isArray(list)) list = [];
-
-  return list.map(t => ({
+function sanitizeTransaction(t) {
+  return {
     ...t,
     amount: safeAmount(t?.amount),
     client: t?.client || t?.reference || 'Total operacional',
@@ -101,11 +107,7 @@ function loadTransactions() {
     status: t?.status || 'Processado',
     origin: t?.origin || 'PIX',
     notes: t?.notes || ''
-  })).filter(t => t && t.datetime && ['deposito', 'saque'].includes(t.type));
-}
-
-function persist() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(transactions));
+  };
 }
 
 function toast(msg) {
@@ -149,10 +151,16 @@ function sum(list, type = null) {
 
 function differenceLabel(dep, wit) {
   const diff = dep - wit;
+
   if (dep === 0 && wit === 0) return 'Sem movimentações no período';
   if (diff === 0) return 'Depósitos e saques estão iguais';
-  const base = Math.max(Math.min(dep, wit), 1);
+
+  if (dep === 0) return 'Somente saques no período';
+  if (wit === 0) return 'Somente depósitos no período';
+
+  const base = Math.min(dep, wit);
   const pct = Math.abs(diff) / base * 100;
+
   return diff > 0
     ? `Depósitos ${pct.toFixed(1).replace('.', ',')}% acima dos saques`
     : `Saques ${pct.toFixed(1).replace('.', ',')}% acima dos depósitos`;
@@ -161,6 +169,7 @@ function differenceLabel(dep, wit) {
 function updateDashboard() {
   const day = todayTransactions();
   const rolling = rolling24Transactions();
+
   const depDay = day.filter(t => t.type === 'deposito');
   const witDay = day.filter(t => t.type === 'saque');
   const dep24 = rolling.filter(t => t.type === 'deposito');
@@ -199,39 +208,57 @@ function compactMoney(v) {
 function prepareCanvas(canvas) {
   const rect = canvas.getBoundingClientRect();
   const ratio = window.devicePixelRatio || 1;
-  const width = Math.max(300, rect.width || canvas.width);
-  const height = parseFloat(getComputedStyle(canvas).height) || canvas.height;
-  canvas.width = width * ratio;
-  canvas.height = height * ratio;
+  const width = Math.max(1, Math.floor(rect.width || canvas.clientWidth || canvas.width || 300));
+  const cssHeight = parseFloat(getComputedStyle(canvas).height);
+  const height = Math.max(1, Math.floor(cssHeight || rect.height || canvas.clientHeight || canvas.height || 220));
+
+  canvas.width = Math.floor(width * ratio);
+  canvas.height = Math.floor(height * ratio);
+
   const ctx = canvas.getContext('2d');
   ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+
   return { ctx, width, height };
 }
 
 function drawFlowChart(data) {
   const { ctx, width, height } = prepareCanvas(els.flowChart);
   ctx.clearRect(0, 0, width, height);
+
   const pad = { l: 52, r: 14, t: 18, b: 34 };
-  const chartW = width - pad.l - pad.r;
-  const chartH = height - pad.t - pad.b;
+  const chartW = Math.max(1, width - pad.l - pad.r);
+  const chartH = Math.max(1, height - pad.t - pad.b);
   const now = new Date();
   const buckets = [];
 
   for (let i = 23; i >= 0; i--) {
     const end = new Date(now.getTime() - i * 3600000);
     const start = new Date(end.getTime() - 3600000);
-    buckets.push({ label: `${String(end.getHours()).padStart(2, '0')}h`, start, end, deposito: 0, saque: 0 });
+    buckets.push({
+      label: `${String(end.getHours()).padStart(2, '0')}h`,
+      start,
+      end,
+      deposito: 0,
+      saque: 0
+    });
   }
 
   data.forEach(t => {
     const dt = new Date(t.datetime);
     if (Number.isNaN(dt.getTime())) return;
+
     const b = buckets.find(x => dt > x.start && dt <= x.end);
-    if (b && ['deposito', 'saque'].includes(t.type)) b[t.type] += safeAmount(t.amount);
+    if (b && ['deposito', 'saque'].includes(t.type)) {
+      b[t.type] += safeAmount(t.amount);
+    }
   });
 
-  const values = buckets.flatMap(b => [safeAmount(b.deposito), safeAmount(b.saque)]).filter(Number.isFinite);
-  const max = Math.max(100, ...(values.length ? values : [0]));
+  const values = buckets
+    .flatMap(b => [safeAmount(b.deposito), safeAmount(b.saque)])
+    .filter(Number.isFinite);
+
+  const maxValue = values.length ? Math.max(...values) : 0;
+  const max = maxValue > 0 ? maxValue : 100;
 
   ctx.strokeStyle = 'rgba(148,163,184,.12)';
   ctx.lineWidth = 1;
@@ -240,7 +267,11 @@ function drawFlowChart(data) {
 
   for (let i = 0; i <= 4; i++) {
     const y = pad.t + (chartH / 4) * i;
-    ctx.beginPath(); ctx.moveTo(pad.l, y); ctx.lineTo(width - pad.r, y); ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(pad.l, y);
+    ctx.lineTo(width - pad.r, y);
+    ctx.stroke();
+
     const val = max - (max / 4) * i;
     ctx.fillText(compactAxis(val), 4, y + 3);
   }
@@ -249,17 +280,27 @@ function drawFlowChart(data) {
 
   function line(type, color, fill) {
     ctx.beginPath();
+
     buckets.forEach((b, i) => {
       const x = pad.l + i * step;
       const y = pad.t + chartH - (safeAmount(b[type]) / max) * chartH;
       i ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
     });
-    ctx.strokeStyle = color; ctx.lineWidth = 2.3; ctx.stroke();
+
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2.3;
+    ctx.stroke();
+
     if (fill) {
-      ctx.lineTo(pad.l + chartW, pad.t + chartH); ctx.lineTo(pad.l, pad.t + chartH); ctx.closePath();
+      ctx.lineTo(pad.l + chartW, pad.t + chartH);
+      ctx.lineTo(pad.l, pad.t + chartH);
+      ctx.closePath();
+
       const g = ctx.createLinearGradient(0, pad.t, 0, pad.t + chartH);
-      g.addColorStop(0, fill); g.addColorStop(1, 'rgba(32,227,162,0)');
-      ctx.fillStyle = g; ctx.fill();
+      g.addColorStop(0, fill);
+      g.addColorStop(1, 'rgba(32,227,162,0)');
+      ctx.fillStyle = g;
+      ctx.fill();
     }
   }
 
@@ -268,6 +309,7 @@ function drawFlowChart(data) {
 
   ctx.fillStyle = '#71839a';
   ctx.font = '10px system-ui';
+
   buckets.forEach((b, i) => {
     if (i % 4 === 0 || i === 23) {
       const x = pad.l + i * step;
@@ -286,26 +328,62 @@ function compactAxis(v) {
 function drawDonut(dep, wit) {
   const { ctx, width, height } = prepareCanvas(els.donutChart);
   ctx.clearRect(0, 0, width, height);
-  dep = safeAmount(dep); wit = safeAmount(wit);
-  const cx = width / 2, cy = height / 2, r = Math.min(width, height) * .35, line = 25, total = dep + wit;
-  ctx.lineWidth = line; ctx.lineCap = 'round';
-  ctx.strokeStyle = 'rgba(148,163,184,.12)';
-  ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.stroke();
+
+  dep = safeAmount(dep);
+  wit = safeAmount(wit);
+
+  const total = dep + wit;
+  const cx = width / 2;
+  const cy = height / 2;
+  const r = Math.max(20, Math.min(width, height) * 0.31);
+  const lineWidth = Math.max(12, Math.min(25, r * 0.28));
+  const start = -Math.PI / 2;
+
+  ctx.lineWidth = lineWidth;
+  ctx.lineCap = 'round';
+
+  ctx.strokeStyle = 'rgba(148,163,184,.15)';
+  ctx.beginPath();
+  ctx.arc(cx, cy, r, 0, Math.PI * 2);
+  ctx.stroke();
+
   if (total <= 0) return;
 
-  const start = -Math.PI / 2;
+  const gap = dep > 0 && wit > 0 ? 0.035 : 0;
   const depAngle = Math.PI * 2 * (dep / total);
-  ctx.strokeStyle = '#20e3a2';
-  ctx.beginPath(); ctx.arc(cx, cy, r, start, start + depAngle); ctx.stroke();
+  const witAngle = Math.PI * 2 * (wit / total);
+
+  if (dep > 0) {
+    ctx.strokeStyle = '#20e3a2';
+    ctx.beginPath();
+    ctx.arc(
+      cx,
+      cy,
+      r,
+      start + gap,
+      start + depAngle - gap
+    );
+    ctx.stroke();
+  }
+
   if (wit > 0) {
     ctx.strokeStyle = '#ff667d';
-    ctx.beginPath(); ctx.arc(cx, cy, r, start + depAngle + .045, start + Math.PI * 2 - .045); ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(
+      cx,
+      cy,
+      r,
+      start + depAngle + gap,
+      start + depAngle + witAngle - gap
+    );
+    ctx.stroke();
   }
 }
 
 function renderHistory() {
   const type = els.filterType.value;
   const q = els.searchInput.value.trim().toLowerCase();
+
   const filtered = [...transactions]
     .sort((a, b) => new Date(b.datetime) - new Date(a.datetime))
     .filter(t => {
@@ -315,8 +393,10 @@ function renderHistory() {
     });
 
   els.historyBody.innerHTML = '';
+
   filtered.forEach(t => {
     const tr = document.createElement('tr');
+
     tr.innerHTML = `
       <td>${dateTimeBR(t.datetime)}</td>
       <td><span class="badge ${t.type}">${t.type === 'deposito' ? 'Depósito' : 'Saque'}</span></td>
@@ -326,39 +406,77 @@ function renderHistory() {
       <td>${escapeHtml(t.analyst)}</td>
       <td>${escapeHtml(t.origin)}</td>
       <td><button class="row-delete" title="Excluir" data-id="${t.id}">×</button></td>`;
+
     els.historyBody.appendChild(tr);
   });
 
   els.emptyState.style.display = filtered.length ? 'none' : 'block';
-  document.querySelectorAll('.row-delete').forEach(btn => btn.addEventListener('click', () => deleteTransaction(btn.dataset.id)));
+
+  document.querySelectorAll('.row-delete').forEach(btn => {
+    btn.addEventListener('click', () => deleteTransaction(btn.dataset.id));
+  });
 }
 
 function escapeHtml(s = '') {
-  return String(s).replace(/[&<>'"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#039;', '"': '&quot;' }[c]));
+  return String(s).replace(/[&<>'"]/g, c => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    "'": '&#039;',
+    '"': '&quot;'
+  }[c]));
 }
 
-function deleteTransaction(id) {
-  transactions = transactions.filter(t => t.id !== id);
-  persist();
-  renderAll();
-  toast('Movimentação removida.');
+async function deleteTransaction(id) {
+  if (!id) return;
+
+  if (!confirm('Excluir esta movimentação para todos os usuários?')) return;
+
+  try {
+    await removeTransaction(id);
+
+    if (lastSavedId === id) {
+      lastSavedId = null;
+    }
+
+    toast('Movimentação removida para todos.');
+  } catch (error) {
+    console.error('Erro ao excluir movimentação:', error);
+    toast('Não foi possível excluir a movimentação.');
+  }
 }
 
 function buildMessage(t) {
   if (!t) return 'Nenhum registro salvo ainda.';
+
   const icon = t.type === 'deposito' ? '🟢' : '🔴';
   const title = t.type === 'deposito' ? 'DEPÓSITO' : 'SAQUE';
-  return `${icon} GINGA | ${title}\n\n💰 Valor: ${money(t.amount)}\n📊 Referência: ${t.client || 'Total operacional'}\n📌 Status: ${t.status}\n🏦 Origem: ${t.origin}\n👨‍💻 Analista: ${t.analyst}\n🕒 Data/Hora: ${dateTimeBR(t.datetime)}${t.notes ? `\n📝 Obs.: ${t.notes}` : ''}`;
+
+  return `${icon} GINGA | ${title}
+
+💰 Valor: ${money(t.amount)}
+📊 Referência: ${t.client || 'Total operacional'}
+📌 Status: ${t.status}
+🏦 Origem: ${t.origin}
+👨‍💻 Analista: ${t.analyst}
+🕒 Data/Hora: ${dateTimeBR(t.datetime)}${t.notes ? `
+📝 Obs.: ${t.notes}` : ''}`;
 }
 
 function updateMessagePreview() {
-  const t = transactions.find(x => x.id === lastSavedId) || [...transactions].sort((a, b) => new Date(b.datetime) - new Date(a.datetime))[0];
+  const t = transactions.find(x => x.id === lastSavedId)
+    || [...transactions].sort((a, b) => new Date(b.datetime) - new Date(a.datetime))[0];
+
   els.messagePreview.textContent = buildMessage(t);
 }
 
-function handleSubmit(e) {
+async function handleSubmit(e) {
   e.preventDefault();
-  const type = document.querySelector('input[name="type"]:checked').value;
+
+  const typeInput = document.querySelector('input[name="type"]:checked');
+  if (!typeInput) return toast('Selecione Depósito ou Saque.');
+
+  const type = typeInput.value;
   const parsedAmount = parseBRL(els.amount.value);
 
   if (!Number.isFinite(parsedAmount) || parsedAmount <= 0) {
@@ -366,10 +484,11 @@ function handleSubmit(e) {
   }
 
   const dt = new Date(els.datetime.value);
-  if (Number.isNaN(dt.getTime())) return toast('Informe uma data e horário válidos.');
+  if (Number.isNaN(dt.getTime())) {
+    return toast('Informe uma data e horário válidos.');
+  }
 
   const item = {
-    id: crypto.randomUUID ? crypto.randomUUID() : String(Date.now()),
     type,
     amount: parsedAmount,
     client: els.client.value.trim() || 'Total operacional',
@@ -381,21 +500,33 @@ function handleSubmit(e) {
     createdAt: new Date().toISOString()
   };
 
-  transactions.push(item);
-  lastSavedId = item.id;
-  persist();
-  renderAll();
-  toast(`${type === 'deposito' ? 'Depósito' : 'Saque'} salvo: ${money(parsedAmount)}`);
+  try {
+    els.transactionForm.querySelector('button[type="submit"]')?.setAttribute('disabled', 'disabled');
 
-  els.amount.value = '';
-  els.client.value = '';
-  els.notes.value = '';
-  els.datetime.value = isoLocal();
+    const ref = await saveTransaction(item);
+    lastSavedId = ref.id;
+
+    toast(`${type === 'deposito' ? 'Depósito' : 'Saque'} salvo: ${money(parsedAmount)}`);
+
+    els.amount.value = '';
+    els.client.value = '';
+    els.notes.value = '';
+    els.datetime.value = isoLocal();
+  } catch (error) {
+    console.error('Erro ao salvar movimentação:', error);
+    toast('Erro ao salvar. Verifique a conexão com o Firebase.');
+  } finally {
+    els.transactionForm.querySelector('button[type="submit"]')?.removeAttribute('disabled');
+  }
 }
 
 async function copyMessage() {
   const text = els.messagePreview.textContent;
-  if (text.startsWith('Nenhum')) return toast('Salve uma movimentação primeiro.');
+
+  if (text.startsWith('Nenhum')) {
+    return toast('Salve uma movimentação primeiro.');
+  }
+
   try {
     await navigator.clipboard.writeText(text);
     toast('Mensagem copiada.');
@@ -405,7 +536,9 @@ async function copyMessage() {
 }
 
 function openEmail() {
-  const t = transactions.find(x => x.id === lastSavedId) || [...transactions].sort((a, b) => new Date(b.datetime) - new Date(a.datetime))[0];
+  const t = transactions.find(x => x.id === lastSavedId)
+    || [...transactions].sort((a, b) => new Date(b.datetime) - new Date(a.datetime))[0];
+
   if (!t) return toast('Salve uma movimentação primeiro.');
 
   const typeLabel = t.type === 'deposito' ? 'Depósito' : 'Saque';
@@ -413,16 +546,42 @@ function openEmail() {
   const body = buildMessage(t).replaceAll('*', '');
   const to = EMAILS.join(',');
 
-  // Abre o Gmail Web já preenchido. O usuário ainda precisa clicar em "Enviar".
   const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(to)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   window.open(gmailUrl, '_blank', 'noopener');
 }
 
 function exportCSV() {
-  if (!transactions.length) return toast('Não há dados para exportar.');
-  const headers = ['data_hora','tipo','referencia','valor','status','analista','origem','observacao'];
-  const rows = transactions.map(t => [t.datetime,t.type,t.client,safeAmount(t.amount).toFixed(2),t.status,t.analyst,t.origin,t.notes].map(csvEscape).join(';'));
-  const blob = new Blob(['\ufeff' + headers.join(';') + '\n' + rows.join('\n')], { type: 'text/csv;charset=utf-8' });
+  if (!transactions.length) {
+    return toast('Não há dados para exportar.');
+  }
+
+  const headers = [
+    'data_hora',
+    'tipo',
+    'referencia',
+    'valor',
+    'status',
+    'analista',
+    'origem',
+    'observacao'
+  ];
+
+  const rows = transactions.map(t => [
+    t.datetime,
+    t.type,
+    t.client,
+    safeAmount(t.amount).toFixed(2),
+    t.status,
+    t.analyst,
+    t.origin,
+    t.notes
+  ].map(csvEscape).join(';'));
+
+  const blob = new Blob(
+    ['\ufeff' + headers.join(';') + '\n' + rows.join('\n')],
+    { type: 'text/csv;charset=utf-8' }
+  );
+
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
   a.download = `ginga-financeiro-${isoLocal().slice(0, 10)}.csv`;
@@ -437,14 +596,24 @@ function csvEscape(v) {
 
 function updateClock() {
   const now = new Date();
+
   els.clock.textContent = now.toLocaleTimeString('pt-BR');
-  els.sidebarDate.textContent = now.toLocaleDateString('pt-BR', { weekday: 'short', day: '2-digit', month: 'short' });
-  const midnight = new Date(now); midnight.setHours(24, 0, 0, 0);
+  els.sidebarDate.textContent = now.toLocaleDateString('pt-BR', {
+    weekday: 'short',
+    day: '2-digit',
+    month: 'short'
+  });
+
+  const midnight = new Date(now);
+  midnight.setHours(24, 0, 0, 0);
+
   const diff = midnight - now;
   const h = Math.floor(diff / 3600000);
   const m = Math.floor((diff % 3600000) / 60000);
   const s = Math.floor((diff % 60000) / 1000);
-  els.countdownMidnight.textContent = `zera em ${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+
+  els.countdownMidnight.textContent =
+    `zera em ${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
 }
 
 function renderAll() {
@@ -453,12 +622,30 @@ function renderAll() {
   updateMessagePreview();
 }
 
+function startRealtimeSync() {
+  unsubscribeTransactions = subscribeTransactions(
+    (list) => {
+      transactions = list
+        .map(sanitizeTransaction)
+        .filter(t => t && t.datetime && ['deposito', 'saque'].includes(t.type));
+
+      renderAll();
+    },
+    (error) => {
+      console.error('Erro na sincronização em tempo real:', error);
+      toast('Falha na sincronização com o Firebase.');
+    }
+  );
+}
+
 window.addEventListener('DOMContentLoaded', () => {
   initElements();
-  persist(); // salva a migração/sanitização do histórico antigo
+
   els.datetime.value = isoLocal();
   updateClock();
   renderAll();
+
+  startRealtimeSync();
 
   els.transactionForm.addEventListener('submit', handleSubmit);
   els.amount.addEventListener('blur', normalizeAmountField);
@@ -466,23 +653,51 @@ window.addEventListener('DOMContentLoaded', () => {
   els.openEmailBtn.addEventListener('click', openEmail);
   els.filterType.addEventListener('change', renderHistory);
   els.searchInput.addEventListener('input', renderHistory);
+
   els.clearFormBtn.addEventListener('click', () => {
     els.transactionForm.reset();
     els.datetime.value = isoLocal();
   });
-  els.clearHistoryBtn.addEventListener('click', () => {
-    if (confirm('Apagar todo o histórico salvo neste navegador?')) {
-      transactions = [];
-      persist();
+
+  els.clearHistoryBtn.addEventListener('click', async () => {
+    if (!transactions.length) {
+      return toast('O histórico já está vazio.');
+    }
+
+    const ok = confirm(
+      'ATENÇÃO: isso apagará TODO o histórico compartilhado para TODOS os usuários. Deseja continuar?'
+    );
+
+    if (!ok) return;
+
+    try {
+      els.clearHistoryBtn.setAttribute('disabled', 'disabled');
+      await clearAllTransactions();
       lastSavedId = null;
-      renderAll();
-      toast('Histórico apagado.');
+      toast('Histórico compartilhado apagado.');
+    } catch (error) {
+      console.error('Erro ao apagar histórico:', error);
+      toast('Não foi possível apagar todo o histórico.');
+    } finally {
+      els.clearHistoryBtn.removeAttribute('disabled');
     }
   });
+
   els.exportBtn.addEventListener('click', exportCSV);
-  setInterval(() => { updateClock(); updateDashboard(); }, 1000);
+
+  setInterval(() => {
+    updateClock();
+    updateDashboard();
+  }, 1000);
+
   window.addEventListener('resize', () => {
     clearTimeout(window.__chartResize);
     window.__chartResize = setTimeout(updateDashboard, 120);
   });
+});
+
+window.addEventListener('beforeunload', () => {
+  if (typeof unsubscribeTransactions === 'function') {
+    unsubscribeTransactions();
+  }
 });
