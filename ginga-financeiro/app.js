@@ -175,13 +175,36 @@ function updateMessagePreview(){
   els.messagePreview.textContent=buildMessage(t);
 }
 
+
+function parseBRL(value){
+  const raw=String(value ?? '').trim().replace(/\s/g,'').replace(/^R\$?/i,'');
+  if(!raw) return NaN;
+
+  // Formato brasileiro: 128.715,50 / 250000,75
+  if(raw.includes(',')){
+    return Number(raw.replace(/\./g,'').replace(',','.'));
+  }
+
+  // Quando há ponto sem vírgula, 128.715 é tratado como milhar.
+  // Um ponto com 1 ou 2 casas continua podendo representar centavos: 128.75.
+  if(/^\d{1,3}(?:\.\d{3})+$/.test(raw)){
+    return Number(raw.replace(/\./g,''));
+  }
+
+  return Number(raw);
+}
+
 function handleSubmit(e){
   e.preventDefault();
   const type=document.querySelector('input[name="type"]:checked').value;
+  const parsedAmount=parseBRL(els.amount.value);
+  if(!Number.isFinite(parsedAmount) || parsedAmount <= 0){
+    return toast('Digite um valor válido. Ex.: 128.715,50');
+  }
   const item={
     id: crypto.randomUUID ? crypto.randomUUID() : String(Date.now()),
     type,
-    amount:Number(els.amount.value),
+    amount:parsedAmount,
     client:els.client.value.trim(),analyst:els.analyst.value.trim(),status:els.status.value,origin:els.origin.value,
     datetime:new Date(els.datetime.value).toISOString(),notes:els.notes.value.trim(),createdAt:new Date().toISOString()
   };
