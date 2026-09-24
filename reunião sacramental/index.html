@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="description"
+    content="Sistema de organização e histórico das reuniões sacramentais da Ala Piedade."
+  >
+
+  <meta name="author" content="José Leandro da Silva Moura">
+
+  <title>Reunião Sacramental | Ala Piedade</title>
+
+  <link rel="stylesheet" href="css/styles.css">
+  <script type="module" src="js/app.js"></script>
+</head>
+
+<body>
+
+  <!-- MENU LATERAL -->
+  <aside class="sidebar">
+
+    <div class="marca">
+
+      <div class="marca-simbolo" aria-hidden="true">
+        <div class="marca-halo"></div>
+
+        <svg
+          viewBox="0 0 100 100"
+          class="icone-cristo"
+          aria-hidden="true"
+        >
+          <circle cx="50" cy="26" r="8"></circle>
+
+          <path
+            d="M50 36
+               C42 36 39 44 39 53
+               L39 67
+               L31 88
+               M50 36
+               C58 36 61 44 61 53
+               L61 67
+               L69 88
+               M40 47
+               L19 60
+               M60 47
+               L81 60"
+          ></path>
+        </svg>
+
+      </div>
+
+      <strong>ALA PIEDADE</strong>
+      <span>Recife • Pernambuco</span>
+
+    </div>
+
+
+    <nav class="menu">
+
+      <button
+        class="menu-item ativo"
+        type="button"
+        data-tela="reuniao"
+      >
+        <span>✎</span>
+        Nova Reunião
+      </button>
+
+      <button
+        class="menu-item"
+        type="button"
+        data-tela="historico"
+      >
+        <span>▣</span>
+        Histórico
+      </button>
+
+      <button
+        class="menu-item"
+        type="button"
+        data-tela="hinos"
+      >
+        <span>♫</span>
+        Hinos SUD
+      </button>
+
+      <button
+        class="menu-item"
+        type="button"
+        data-tela="ajuda"
+      >
+        <span>?</span>
+        Ajuda
+      </button>
+
+    </nav>
+
+
+    <div class="sidebar-rodape">
+
+      <p>
+        “Tudo o que fizerdes, fazei-o de todo o coração,
+        como ao Senhor.”
+      </p>
+
+      <span>Colossenses 3:23</span>
+
+    </div>
+
+  </aside>
+
+
+  <!-- ÁREA PRINCIPAL -->
+  <div class="pagina">
+
+    <!-- FUNDO DECORATIVO -->
+    <div class="fundo-templo" aria-hidden="true">
+
+      <div class="lua"></div>
+
+      <div class="templo-silhueta">
+
+        <div class="torre-central">
+          <div class="agulha"></div>
+          <div class="torre-luz"></div>
+        </div>
+
+        <div class="predio-templo">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+      </div>
+
+      <div class="horizonte"></div>
+
+    </div>
+
+
+    <!-- ==========================
+         NOVA REUNIÃO
+    =========================== -->
+    <section
+      class="tela ativa"
+      id="tela-reuniao"
+    >
+
+      <header class="cabecalho">
+
+        <div class="cabecalho-titulo">
+
+          <span class="pagina-tag-clara">
+            ALA PIEDADE
+          </span>
+
+          <h1>Reunião Sacramental</h1>
+
+          <p>
+            Recife
+            <span>•</span>
+            Pernambuco
+          </p>
+
+        </div>
+
+
+        <div class="cabecalho-direita">
+
+          <div class="status">
+
+            <span
+              class="status-ponto"
+              id="statusPonto"
+            ></span>
+
+            <div>
+
+              <strong id="statusTitulo">
+                Reunião em edição
+              </strong>
+
+              <small id="statusSalvamento">
+                Salvo localmente
+              </small>
+
+            </div>
+
+          </div>
+
+
+          <div class="data-topo">
+
+            <strong id="dataTopo">
+              Data da reunião
+            </strong>
+
+            <span id="horaTopo">
+              09:00
+            </span>
+
+          </div>
+
+        </div>
+
+      </header>
+
+
+      <main class="conteudo">
+
+        <!-- 01 -->
+        <section class="card">
+
+          <div class="card-titulo">
+
+            <span class="numero">01</span>
+
+            <div>
+              <h2>Dados da reunião</h2>
+              <p>Informações gerais e responsáveis</p>
+            </div>
+
+          </div>
+
+
+          <div class="grid tres-colunas">
+
+            <label>
+              <span>Data da reunião</span>
+
+              <input
+                type="date"
+                id="dataReuniao"
+              >
+            </label>
+
+
+            <label>
+              <span>Horário</span>
+
+              <input
+                type="time"
+                id="horarioReuniao"
+                value="09:00"
+              >
+            </label>
+
+
+            <label>
+              <span>Preside</span>
+
+              <input
+                type="text"
+                id="preside"
+                placeholder="Nome de quem preside"
+              >
+            </label>
+
+
+            <label>
+              <span>Dirige</span>
+
+              <input
+                type="text"
+                id="dirige"
+                placeholder="Nome de quem dirige"
+              >
+            </label>
+
+
+            <label>
+              <span>Pianista</span>
+
+              <input
+                type="text"
+                id="pianista"
+                placeholder="Nome do(a) pianista"
+              >
+            </label>
+
+
+            <label>
+              <span>Regente</span>
+
+              <input
+                type="text"
+                id="regente"
+                placeholder="Nome do(a) regente"
+              >
+            </label>
+
+          </div>
+
+        </section>
+
+
+        <!-- 02 -->
+        <section class="card">
+
+          <div class="card-titulo">
+
+            <span class="numero">02</span>
+
+            <div>
+              <h2>Abertura</h2>
+              <p>Hino de abertura e oração</p>
+            </div>
+
+          </div>
+
+
+          <div class="grid duas-colunas">
+
+            <label>
+              <span>♫ Hino de abertura</span>
+
+              <input
+                type="text"
+                id="hinoAbertura"
+                placeholder="Número ou nome do hino"
+              >
+            </label>
+
+
+            <label>
+              <span>Oração de abertura</span>
+
+              <input
+                type="text"
+                id="oracaoAbertura"
+                placeholder="Nome de quem fará a oração"
+              >
+            </label>
+
+          </div>
+
+        </section>
+
+
+        <!-- 03 -->
+        <section class="card">
+
+          <div class="card-titulo">
+
+            <span class="numero">03</span>
+
+            <div>
+              <h2>Assuntos da Ala</h2>
+              <p>Anúncios, apoios e desobrigações</p>
+            </div>
+
+          </div>
+
+
+          <label class="campo-grande">
+
+            <span>Anúncios e comunicados</span>
+
+            <textarea
+              id="anuncios"
+              placeholder="Digite os anúncios que serão apresentados..."
+            ></textarea>
+
+          </label>
+
+
+          <div class="administracao-grid">
+
+            <!-- APOIOS -->
+            <div class="painel-lista">
+
+              <div class="painel-cabecalho">
+
+                <div>
+                  <h3>Apoios</h3>
+
+                  <p>
+                    Chamados apresentados para apoio
+                    da congregação.
+                  </p>
+                </div>
+
+                <button
+                  id="adicionarApoio"
+                  class="botao-adicionar"
+                  type="button"
+                >
+                  + Adicionar apoio
+                </button>
+
+              </div>
+
+
+              <div class="tabela-cabecalho">
+                <span>Nº</span>
+                <span>Nome do membro</span>
+                <span>Chamado</span>
+                <span></span>
+              </div>
+
+
+              <div
+                id="listaApoios"
+                class="lista-registros"
+              ></div>
+
+            </div>
+
+
+            <!-- DESOBRIGAÇÕES -->
+            <div class="painel-lista">
+
+              <div class="painel-cabecalho">
+
+                <div>
+                  <h3>Desobrigações</h3>
+
+                  <p>
+                    Registre as desobrigações
+                    apresentadas.
+                  </p>
+                </div>
+
+                <button
+                  id="adicionarDesobrigacao"
+                  class="botao-adicionar"
+                  type="button"
+                >
+                  + Adicionar desobrigação
+                </button>
+
+              </div>
+
+
+              <div class="tabela-cabecalho">
+                <span>Nº</span>
+                <span>Nome do membro</span>
+                <span>Chamado</span>
+                <span></span>
+              </div>
+
+
+              <div
+                id="listaDesobrigacoes"
+                class="lista-registros"
+              ></div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- 04 -->
+        <section class="card">
+
+          <div class="card-titulo">
+
+            <span class="numero">04</span>
+
+            <div>
+              <h2>Administração do Sacramento</h2>
+              <p>Hino sacramental</p>
+            </div>
+
+          </div>
+
+
+          <div class="sacramento-grid">
+
+            <label>
+
+              <span>♫ Hino sacramental</span>
+
+              <input
+                type="text"
+                id="hinoSacramental"
+                placeholder="Número ou nome do hino"
+              >
+
+            </label>
+
+
+            <div class="informacao">
+
+              <span>ⓘ</span>
+
+              <p>
+                Após o hino sacramental, o sacramento
+                é administrado à congregação.
+              </p>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- 05 -->
+        <section class="card">
+
+          <div class="card-titulo">
+
+            <span class="numero">05</span>
+
+            <div>
+              <h2>Discursos</h2>
+              <p>Mensagens da reunião sacramental</p>
+            </div>
+
+          </div>
+
+
+          <div class="discurso">
+
+            <span class="ordem">1</span>
+
+            <label>
+              <span>Discursante</span>
+
+              <input
+                type="text"
+                id="discursante1"
+                placeholder="Nome do discursante"
+              >
+            </label>
+
+            <label>
+              <span>Tema</span>
+
+              <input
+                type="text"
+                id="tema1"
+                placeholder="Tema, se houver"
+              >
+            </label>
+
+          </div>
+
+
+          <div class="discurso">
+
+            <span class="ordem">2</span>
+
+            <label>
+              <span>Discursante</span>
+
+              <input
+                type="text"
+                id="discursante2"
+                placeholder="Nome do discursante"
+              >
+            </label>
+
+            <label>
+              <span>Tema</span>
+
+              <input
+                type="text"
+                id="tema2"
+                placeholder="Tema, se houver"
+              >
+            </label>
+
+          </div>
+
+
+          <div class="hino-intermediario">
+
+            <div class="hino-icone">
+              ♫
+            </div>
+
+            <label>
+
+              <span>Hino intermediário</span>
+
+              <input
+                type="text"
+                id="hinoIntermediario"
+                placeholder="Número ou nome do hino"
+              >
+
+            </label>
+
+          </div>
+
+
+          <div class="discurso">
+
+            <span class="ordem">3</span>
+
+            <label>
+              <span>Discursante</span>
+
+              <input
+                type="text"
+                id="discursante3"
+                placeholder="Nome do discursante"
+              >
+            </label>
+
+            <label>
+              <span>Tema</span>
+
+              <input
+                type="text"
+                id="tema3"
+                placeholder="Tema, se houver"
+              >
+            </label>
+
+          </div>
+
+        </section>
+
+
+        <!-- 06 -->
+        <section class="card">
+
+          <div class="card-titulo">
+
+            <span class="numero">06</span>
+
+            <div>
+              <h2>Encerramento</h2>
+              <p>Hino e oração de encerramento</p>
+            </div>
+
+          </div>
+
+
+          <div class="grid duas-colunas">
+
+            <label>
+
+              <span>♫ Hino de encerramento</span>
+
+              <input
+                type="text"
+                id="hinoEncerramento"
+                placeholder="Número ou nome do hino"
+              >
+
+            </label>
+
+
+            <label>
+
+              <span>Oração de encerramento</span>
+
+              <input
+                type="text"
+                id="oracaoEncerramento"
+                placeholder="Nome de quem fará a oração"
+              >
+
+            </label>
+
+          </div>
+
+        </section>
+
+
+        <!-- 07 -->
+        <section class="card">
+
+          <div class="card-titulo">
+
+            <span class="numero">07</span>
+
+            <div>
+              <h2>Observações</h2>
+              <p>Registro complementar da reunião</p>
+            </div>
+
+          </div>
+
+
+          <label class="campo-grande">
+
+            <textarea
+              id="observacoes"
+              placeholder="Digite observações adicionais..."
+            ></textarea>
+
+          </label>
+
+        </section>
+
+
+        <!-- AÇÕES -->
+        <section class="acoes-reuniao">
+
+          <div>
+
+            <span class="finalizacao-tag">
+              CONTROLE DA REUNIÃO
+            </span>
+
+            <h2>Reunião em andamento</h2>
+
+            <p>
+              Salve para continuar depois ou finalize
+              quando a reunião estiver concluída.
+            </p>
+
+          </div>
+
+
+          <div class="botoes-acoes">
+
+            <button
+              id="salvarReuniao"
+              class="botao-salvar"
+              type="button"
+            >
+              💾 Salvar reunião
+            </button>
+
+            <button
+              id="finalizarReuniao"
+              class="botao-finalizar"
+              type="button"
+            >
+              ✓ Finalizar reunião
+            </button>
+
+          </div>
+
+        </section>
+
+      </main>
+
+    </section>
+
+
+    <!-- ==========================
+         HISTÓRICO
+    =========================== -->
+    <section
+      class="tela"
+      id="tela-historico"
+    >
+
+      <header class="cabecalho cabecalho-interno">
+
+        <div class="cabecalho-titulo">
+
+          <span class="pagina-tag-clara">
+            ARQUIVO DA ALA
+          </span>
+
+          <h1>Histórico</h1>
+
+          <p>
+            Reuniões sacramentais finalizadas
+          </p>
+
+        </div>
+
+      </header>
+
+
+      <main class="conteudo">
+
+        <section class="card">
+
+          <div class="historico-topo">
+
+            <div>
+
+              <h2>Reuniões finalizadas</h2>
+
+              <p>
+                As atas permanecem disponíveis
+                para consulta.
+              </p>
+
+            </div>
+
+
+            <span
+              class="contador-historico"
+              id="contadorHistorico"
+            >
+              0 reuniões
+            </span>
+
+          </div>
+
+
+          <div id="listaHistorico"></div>
+
+        </section>
+
+      </main>
+
+    </section>
+
+
+    <!-- ==========================
+         HINOS
+    =========================== -->
+    <section
+      class="tela"
+      id="tela-hinos"
+    >
+
+      <header class="cabecalho cabecalho-interno">
+
+        <div class="cabecalho-titulo">
+
+          <span class="pagina-tag-clara">
+            MÚSICA SACRA
+          </span>
+
+          <h1>Hinos SUD</h1>
+
+          <p>
+            Coleções oficiais da Igreja
+          </p>
+
+        </div>
+
+      </header>
+
+
+      <main class="conteudo">
+
+        <section class="card card-hinarios">
+
+          <div class="card-titulo">
+
+            <span class="numero">♫</span>
+
+            <div>
+              <h2>Hinários oficiais</h2>
+
+              <p>
+                Escolha qual coleção deseja consultar
+              </p>
+            </div>
+
+          </div>
+
+
+          <div class="hinarios-oficiais">
+
+            <a
+              class="hinario-card"
+              href="https://www.churchofjesuschrist.org/media/music/collections/hymns?lang=por"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+
+              <div class="hinario-ilustracao">
+
+                <span class="nota-grande">
+                  ♫
+                </span>
+
+                <span class="hinario-linhas"></span>
+
+              </div>
+
+
+              <div class="hinario-conteudo">
+
+                <span class="hinario-tag">
+                  HINÁRIO TRADICIONAL
+                </span>
+
+                <h3>Hinos</h3>
+
+                <p>
+                  Consulte a coleção tradicional
+                  de hinos da Igreja.
+                </p>
+
+                <span class="abrir-hinario">
+                  Acessar coleção oficial
+                  <b>→</b>
+                </span>
+
+              </div>
+
+            </a>
+
+
+            <a
+              class="hinario-card hinario-novo"
+              href="https://www.churchofjesuschrist.org/media/music/collections/hymns-for-home-and-church?lang=por"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+
+              <div class="hinario-ilustracao">
+
+                <span class="selo-novo">
+                  NOVO
+                </span>
+
+                <span class="nota-grande">
+                  ♪
+                </span>
+
+                <span class="hinario-linhas"></span>
+
+              </div>
+
+
+              <div class="hinario-conteudo">
+
+                <span class="hinario-tag">
+                  NOVA COLEÇÃO
+                </span>
+
+                <h3>
+                  Hinos — Para o Lar e para a Igreja
+                </h3>
+
+                <p>
+                  Consulte a nova coleção oficial
+                  de música sacra.
+                </p>
+
+                <span class="abrir-hinario">
+                  Acessar nova coleção
+                  <b>→</b>
+                </span>
+
+              </div>
+
+            </a>
+
+          </div>
+
+
+          <div class="aviso-hinarios">
+
+            <span>ⓘ</span>
+
+            <p>
+              Os dois botões levam diretamente às
+              coleções oficiais no site de
+              A Igreja de Jesus Cristo dos Santos
+              dos Últimos Dias.
+            </p>
+
+          </div>
+
+        </section>
+
+      </main>
+
+    </section>
+
+
+    <!-- ==========================
+         AJUDA
+    =========================== -->
+    <section
+      class="tela"
+      id="tela-ajuda"
+    >
+
+      <header class="cabecalho cabecalho-interno">
+
+        <div class="cabecalho-titulo">
+
+          <span class="pagina-tag-clara">
+            SUPORTE
+          </span>
+
+          <h1>Ajuda</h1>
+
+          <p>
+            Como utilizar o sistema
+          </p>
+
+        </div>
+
+      </header>
+
+
+      <main class="conteudo">
+
+        <section class="ajuda-grid">
+
+          <article class="card ajuda-card">
+
+            <span class="ajuda-icone">
+              ✎
+            </span>
+
+            <h2>1. Prepare a reunião</h2>
+
+            <p>
+              Preencha responsáveis, hinos,
+              anúncios, apoios, desobrigações
+              e discursantes.
+            </p>
+
+          </article>
+
+
+          <article class="card ajuda-card">
+
+            <span class="ajuda-icone">
+              💾
+            </span>
+
+            <h2>2. Salve</h2>
+
+            <p>
+              O sistema salva automaticamente
+              neste navegador. Você também pode
+              usar o botão Salvar reunião.
+            </p>
+
+          </article>
+
+
+          <article class="card ajuda-card">
+
+            <span class="ajuda-icone">
+              ✓
+            </span>
+
+            <h2>3. Finalize</h2>
+
+            <p>
+              Quando a reunião terminar,
+              finalize a ata para enviá-la
+              ao Histórico.
+            </p>
+
+          </article>
+
+
+          <article class="card ajuda-card">
+
+            <span class="ajuda-icone">
+              ▣
+            </span>
+
+            <h2>4. Consulte</h2>
+
+            <p>
+              Abra o Histórico para visualizar
+              reuniões sacramentais já
+              finalizadas.
+            </p>
+
+          </article>
+
+        </section>
+
+
+        <section class="card aviso-local">
+
+          <h2>Versão local</h2>
+
+          <p>
+            Nesta etapa os dados ainda ficam
+            armazenados neste navegador.
+            Depois conectaremos o Firebase para
+            sincronização em tempo real entre
+            os dispositivos autorizados.
+          </p>
+
+        </section>
+
+      </main>
+
+    </section>
+
+
+    <!-- MODAL DO HISTÓRICO -->
+    <div
+      class="modal oculto"
+      id="modalHistorico"
+    >
+
+      <div class="modal-fundo"></div>
+
+
+      <div class="modal-conteudo">
+
+        <div class="modal-topo">
+
+          <div>
+
+            <span class="pagina-tag">
+              ATA FINALIZADA
+            </span>
+
+            <h2 id="modalTitulo">
+              Reunião Sacramental
+            </h2>
+
+          </div>
+
+
+          <button
+            type="button"
+            id="fecharModal"
+            class="fechar-modal"
+          >
+            ×
+          </button>
+
+        </div>
+
+
+        <div id="modalCorpo"></div>
+
+      </div>
+
+    </div>
+
+
+    <footer>
+
+      <strong>Ala Piedade</strong>
+
+      <span>
+        Sistema de Reuniões Sacramentais
+      </span>
+
+    </footer>
+
+  </div>
+
+</body>
+
+</html>
