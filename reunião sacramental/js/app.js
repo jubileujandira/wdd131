@@ -445,6 +445,15 @@ function atualizarNumeracao(container) {
 }
 
 
+/*
+  IMPORTANTE:
+  Mantemos inclusive as linhas vazias.
+
+  Isso impede que uma linha recém-adicionada em
+  Apoios ou Desobrigações desapareça quando o
+  Firebase fizer a sincronização em tempo real.
+*/
+
 function coletarLista(container) {
 
   if (!container) {
@@ -477,12 +486,7 @@ function coletarLista(container) {
 
       };
 
-    })
-    .filter(
-      (item) =>
-        item.nome ||
-        item.chamado
-    );
+    });
 
 }
 
@@ -772,44 +776,81 @@ function renderizarListaAta(
 
 
   const linhas =
-    itens.map(
-      (item) => {
+    itens
+      .filter(
+        (item) => {
 
-        if (
-          typeof item === "string"
-        ) {
+          if (
+            typeof item === "string"
+          ) {
+
+            return item.trim();
+
+          }
+
+          return (
+            item?.nome ||
+            item?.chamado
+          );
+
+        }
+      )
+      .map(
+        (item) => {
+
+          if (
+            typeof item === "string"
+          ) {
+
+            return `
+              <li>
+                ${escaparHTML(item)}
+              </li>
+            `;
+
+          }
+
+          const nome =
+            escaparHTML(
+              item.nome || ""
+            );
+
+          const chamado =
+            escaparHTML(
+              item.chamado || ""
+            );
 
           return `
             <li>
-              ${escaparHTML(item)}
+              ${nome}
+              ${
+                chamado
+                  ? ` — ${chamado}`
+                  : ""
+              }
             </li>
           `;
 
         }
+      )
+      .join("");
 
-        const nome =
-          escaparHTML(
-            item.nome || ""
-          );
 
-        const chamado =
-          escaparHTML(
-            item.chamado || ""
-          );
+  if (!linhas) {
 
-        return `
-          <li>
-            ${nome}
-            ${
-              chamado
-                ? ` — ${chamado}`
-                : ""
-            }
-          </li>
-        `;
+    return `
+      <div class="ata-secao">
 
-      }
-    ).join("");
+        <h3>
+          ${escaparHTML(titulo)}
+        </h3>
+
+        <p>—</p>
+
+      </div>
+    `;
+
+  }
 
 
   return `
